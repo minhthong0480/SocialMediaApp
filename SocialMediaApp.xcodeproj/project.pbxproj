@@ -20,6 +20,7 @@
 		BA8F0F492AB1921C0061A69A /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BA8F0F482AB1921C0061A69A /* FirebaseFirestoreSwift */; };
 		BA8F0F4B2AB1921C0061A69A /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = BA8F0F4A2AB1921C0061A69A /* FirebaseStorage */; };
 		BA8F0F4D2AB1921C0061A69A /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = BA8F0F4C2AB1921C0061A69A /* FirebaseStorageCombine-Community */; };
+		BA8F0F512AB198140061A69A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F0F502AB198140061A69A /* LoginView.swift */; };
 		E8A07B4A2AB08C83004B7409 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = E8A07B492AB08C83004B7409 /* .gitignore */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		BA8F0F312AB04A600061A69A /* SocialMediaApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SocialMediaApp.entitlements; sourceTree = "<group>"; };
 		BA8F0F332AB04A600061A69A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BA8F0F3B2AB190BE0061A69A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BA8F0F502AB198140061A69A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		E8A07B492AB08C83004B7409 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,10 +74,11 @@
 		BA8F0F2A2AB04A5F0061A69A /* SocialMediaApp */ = {
 			isa = PBXGroup;
 			children = (
+				BA8F0F4F2AB197190061A69A /* View Models */,
+				BA8F0F4E2AB1969D0061A69A /* Views */,
 				BA8F0F3B2AB190BE0061A69A /* GoogleService-Info.plist */,
 				BA8F0F3A2AB18FF70061A69A /* Models */,
 				BA8F0F2B2AB04A5F0061A69A /* SocialMediaAppApp.swift */,
-				BA8F0F2D2AB04A5F0061A69A /* ContentView.swift */,
 				BA8F0F2F2AB04A600061A69A /* Assets.xcassets */,
 				BA8F0F312AB04A600061A69A /* SocialMediaApp.entitlements */,
 				BA8F0F322AB04A600061A69A /* Preview Content */,
@@ -97,6 +100,22 @@
 			children = (
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		BA8F0F4E2AB1969D0061A69A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BA8F0F2D2AB04A5F0061A69A /* ContentView.swift */,
+				BA8F0F502AB198140061A69A /* LoginView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BA8F0F4F2AB197190061A69A /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "View Models";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,6 +203,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA8F0F512AB198140061A69A /* LoginView.swift in Sources */,
 				BA8F0F2E2AB04A5F0061A69A /* ContentView.swift in Sources */,
 				BA8F0F2C2AB04A5F0061A69A /* SocialMediaAppApp.swift in Sources */,
 			);
@@ -310,7 +330,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SocialMediaApp/Preview Content\"";
-				DEVELOPMENT_TEAM = 58F8BKFLMV;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -348,7 +368,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SocialMediaApp/Preview Content\"";
-				DEVELOPMENT_TEAM = 58F8BKFLMV;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
