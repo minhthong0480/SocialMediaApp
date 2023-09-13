@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BA1415C52AB1E55300FAD31E /* PlaceHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1415C42AB1E55300FAD31E /* PlaceHolder.swift */; };
+		BA1415C72AB1E55F00FAD31E /* PlaceHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1415C62AB1E55F00FAD31E /* PlaceHolder.swift */; };
 		BA8F0F2C2AB04A5F0061A69A /* SocialMediaAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F0F2B2AB04A5F0061A69A /* SocialMediaAppApp.swift */; };
 		BA8F0F2E2AB04A5F0061A69A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F0F2D2AB04A5F0061A69A /* ContentView.swift */; };
 		BA8F0F302AB04A600061A69A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA8F0F2F2AB04A600061A69A /* Assets.xcassets */; };
@@ -30,6 +32,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BA1415C42AB1E55300FAD31E /* PlaceHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlaceHolder.swift; path = SocialMediaApp/Core/Authentication/PlaceHolder.swift; sourceTree = SOURCE_ROOT; };
+		BA1415C62AB1E55F00FAD31E /* PlaceHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlaceHolder.swift; path = SocialMediaApp/Core/Authentication/PlaceHolder.swift; sourceTree = SOURCE_ROOT; };
 		BA8F0F282AB04A5F0061A69A /* SocialMediaApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialMediaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8F0F2B2AB04A5F0061A69A /* SocialMediaAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaAppApp.swift; sourceTree = "<group>"; };
 		BA8F0F2D2AB04A5F0061A69A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -136,6 +140,7 @@
 		BA8F0F552AB1A3670061A69A /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				BA1415C62AB1E55F00FAD31E /* PlaceHolder.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -160,6 +165,7 @@
 		BA8F0F5D2AB1AA380061A69A /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				BA1415C42AB1E55300FAD31E /* PlaceHolder.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -269,8 +275,10 @@
 				BA8F0F2E2AB04A5F0061A69A /* ContentView.swift in Sources */,
 				BA8F0F2C2AB04A5F0061A69A /* SocialMediaAppApp.swift in Sources */,
 				BA8F0F6B2AB1C5100061A69A /* UserModel.swift in Sources */,
+				BA1415C72AB1E55F00FAD31E /* PlaceHolder.swift in Sources */,
 				BA8F0F5A2AB1A9970061A69A /* LoginView.swift in Sources */,
 				BA8F0F572AB1A37F0061A69A /* SignupView.swift in Sources */,
+				BA1415C52AB1E55300FAD31E /* PlaceHolder.swift in Sources */,
 				BA8F0F672AB1C2A00061A69A /* ProfileView.swift in Sources */,
 				BA8F0F622AB1B0D20061A69A /* InputField.swift in Sources */,
 				BA8F0F692AB1C3550061A69A /* Modifier.swift in Sources */,
