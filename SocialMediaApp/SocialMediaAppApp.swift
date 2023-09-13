@@ -9,7 +9,6 @@ import SwiftUI
 import Firebase
 
 
-
 @main
 struct SocialMediaAppApp: App {
     init(){
