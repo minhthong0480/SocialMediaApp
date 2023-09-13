@@ -50,9 +50,7 @@ struct SignupView: View {
                 .foregroundColor(.white)
                 .frame(width: UIScreen.main.bounds.width - 32, height: 40)
             }//label
-            .background(Color(.systemBlue))
-            .cornerRadius(10)
-            .padding()
+            .modifier(ButtonModifier())
             
             Spacer()
             
@@ -63,13 +61,10 @@ struct SignupView: View {
                     Text("Already have an account?")
                     Text("Log In")
                         .fontWeight(.bold)
-                    
                 }//hstack
-                
-                
             }//label
             
-        }
+        }//Vstack
         
     }//View
 }

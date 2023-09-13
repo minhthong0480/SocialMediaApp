@@ -32,7 +32,6 @@ struct LoginView: View {
                 
                 
                 //sign in button
-                
                 Button {
                     // TODO
                 } label: {
@@ -44,9 +43,7 @@ struct LoginView: View {
                     .foregroundColor(.white)
                     .frame(width: UIScreen.main.bounds.width - 32, height: 40)
                 }//label
-                .background(Color(.systemBlue))
-                .cornerRadius(10)
-                .padding()
+                .modifier(ButtonModifier())
                 
                 Spacer()
                 

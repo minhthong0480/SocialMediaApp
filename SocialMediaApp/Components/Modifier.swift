@@ -6,3 +6,13 @@
 //
 
 import Foundation
+import SwiftUI
+
+struct ButtonModifier: ViewModifier{
+    func body(content: Content) -> some View {
+        content
+            .background(Color(.systemBlue))
+            .cornerRadius(10)
+            .padding()
+    }
+}
