@@ -24,6 +24,7 @@
 		BA8F0F5A2AB1A9970061A69A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F0F592AB1A9970061A69A /* LoginView.swift */; };
 		BA8F0F622AB1B0D20061A69A /* InputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F0F612AB1B0D20061A69A /* InputField.swift */; };
 		BA8F0F642AB1BCA60061A69A /* ButtonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F0F632AB1BCA60061A69A /* ButtonModel.swift */; };
+		BA8F0F672AB1C2A00061A69A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F0F662AB1C2A00061A69A /* ProfileView.swift */; };
 		E8A07B4A2AB08C83004B7409 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = E8A07B492AB08C83004B7409 /* .gitignore */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		BA8F0F592AB1A9970061A69A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		BA8F0F612AB1B0D20061A69A /* InputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputField.swift; sourceTree = "<group>"; };
 		BA8F0F632AB1BCA60061A69A /* ButtonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonModel.swift; sourceTree = "<group>"; };
+		BA8F0F662AB1C2A00061A69A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		E8A07B492AB08C83004B7409 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,10 +82,10 @@
 		BA8F0F2A2AB04A5F0061A69A /* SocialMediaApp */ = {
 			isa = PBXGroup;
 			children = (
+				BA8F0F652AB1C2010061A69A /* Models */,
 				BA8F0F5E2AB1B0770061A69A /* Components */,
 				BA8F0F522AB1A34B0061A69A /* Core */,
 				BA8F0F3B2AB190BE0061A69A /* GoogleService-Info.plist */,
-				BA8F0F3A2AB18FF70061A69A /* Models */,
 				BA8F0F2D2AB04A5F0061A69A /* ContentView.swift */,
 				BA8F0F2F2AB04A600061A69A /* Assets.xcassets */,
 				BA8F0F2B2AB04A5F0061A69A /* SocialMediaAppApp.swift */,
@@ -100,13 +102,6 @@
 				BA8F0F332AB04A600061A69A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		BA8F0F3A2AB18FF70061A69A /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		BA8F0F522AB1A34B0061A69A /* Core */ = {
@@ -155,6 +150,7 @@
 		BA8F0F5C2AB1AA320061A69A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BA8F0F662AB1C2A00061A69A /* ProfileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -173,6 +169,13 @@
 				BA8F0F632AB1BCA60061A69A /* ButtonModel.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		BA8F0F652AB1C2010061A69A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,6 +268,7 @@
 				BA8F0F2C2AB04A5F0061A69A /* SocialMediaAppApp.swift in Sources */,
 				BA8F0F5A2AB1A9970061A69A /* LoginView.swift in Sources */,
 				BA8F0F572AB1A37F0061A69A /* SignupView.swift in Sources */,
+				BA8F0F672AB1C2A00061A69A /* ProfileView.swift in Sources */,
 				BA8F0F622AB1B0D20061A69A /* InputField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
