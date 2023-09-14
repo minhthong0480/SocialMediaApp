@@ -6,11 +6,15 @@
 //
 
 import SwiftUI
-import UIKit
+//import UIKit
 
 struct PostView: View {
+    @ObservedObject var viewModel: PostViewModel
+    init (post: Post) {
+        self.viewModel = PostViewModel(post: post)
+    }
     var body: some View {
-        VStack(alignment:.leading){
+        VStack(alignment:.leading) {
             HStack(alignment:.top, spacing: 10){
                 Image(systemName: "person")
                     .resizable()
@@ -26,13 +30,19 @@ struct PostView: View {
                         .font(.caption)
                 }
                 Spacer()
-                Text("Just now")
-                    .font(.caption)
+                VStack(alignment:.trailing) {
+                    Text(viewModel.post.timestamp.formatted(date: .abbreviated, time: .shortened))
+                        .font(.caption)
+//                    Text(viewModel.post.timestamp, style: .date)
+//                        .font(.caption)
+//                    Text(viewModel.post.timestamp, style: .time)
+//                        .font(.caption)
+                }
             }
-            Text("This is an example caption.")
-            Rectangle()
+            Text(viewModel.post.caption)
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(.black, lineWidth: 1)
                 .frame(height:400)
-                .cornerRadius(20)
             Divider()
             HStack(spacing:15){
                 Image(systemName: "heart")
@@ -51,13 +61,14 @@ struct PostView: View {
                     .frame(width: 25)
             }
             .frame(height:25)
-        }
-        .frame(width: UIScreen.main.bounds.width - 40)
+        } //VStack
+        .padding()
+//        .frame(width: UIScreen.main.bounds.width - 40)
     }
 }
 
 struct PostView_Previews: PreviewProvider {
     static var previews: some View {
-        PostView()
+        PostView(post: Post(caption: "Hello, this is an example"))
     }
 }
