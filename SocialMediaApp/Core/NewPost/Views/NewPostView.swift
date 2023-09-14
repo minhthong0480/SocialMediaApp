@@ -9,30 +9,44 @@ import SwiftUI
 
 struct NewPostView: View {
     @State private var caption = ""
+    @State private var placeholder = "What's on your mind?"
     var body: some View {
-        VStack() {
-            VStack(spacing: 10){
+        VStack(alignment: .leading) {
+            HStack(spacing: 20) {
                 Image(systemName: "person")
                     .resizable()
                 //                .scaledToFill()
                     .clipShape(Circle())
-                    .frame(width:150, height:150)
+                    .frame(width:100, height:100)
                 //                .border(.black)
-                VStack(){
+                VStack(alignment: .leading){
                     Text("John Doe")
-                        .font(.headline)
+                        .font(.title)
                         .fontWeight(.bold)
                     Text("@johndoe")
-                        .font(.caption)
                 }
             }
-            TextEditor(text: $caption)
-                .foregroundStyle(.primary)
-                .padding()
-                .overlay {
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(.black, lineWidth: 1)
+            
+            ZStack {
+                if self.caption.isEmpty {
+                    TextEditor(text: $placeholder)
+                        .foregroundStyle(.secondary)
+                        .disabled(true)
+                        .padding()
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(.black, lineWidth: 1)
+                        }
                 }
+                TextEditor(text: $caption)
+                    .foregroundStyle(.primary)
+                    .opacity(self.caption.isEmpty ? 0.25 : 1)
+                    .padding()
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(.black, lineWidth: 1)
+                    }
+            }
             Divider()
             HStack(spacing:15) {
                 Spacer()
