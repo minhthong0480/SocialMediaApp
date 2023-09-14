@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct PostView: View {
     var body: some View {
@@ -32,6 +33,24 @@ struct PostView: View {
             Rectangle()
                 .frame(height:400)
                 .cornerRadius(20)
+            Divider()
+            HStack(spacing:15){
+                Image(systemName: "heart")
+                    .resizable()
+                    .scaledToFit()
+                Image(systemName: "message")
+                    .resizable()
+                    .scaledToFit()
+                Image(systemName: "arrowshape.turn.up.forward")
+                    .resizable()
+                    .scaledToFit()
+                Spacer()
+                Image(systemName: "bookmark")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 25)
+            }
+            .frame(height:25)
         }
         .frame(width: UIScreen.main.bounds.width - 40)
     }
