@@ -10,6 +10,7 @@ import SwiftUI
 
 struct PostView: View {
     @ObservedObject var viewModel: PostViewModel
+    
     init (post: Post) {
         self.viewModel = PostViewModel(post: post)
     }
