@@ -12,6 +12,9 @@ struct SignupView: View {
     @State private var fullname = ""
     @State private var password = ""
     @State private var confirmPassword = ""
+    
+    @State var signUpSuccess = false
+    
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
