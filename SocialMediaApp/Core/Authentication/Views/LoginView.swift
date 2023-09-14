@@ -23,7 +23,7 @@ struct LoginView: View {
                 //form
                 VStack(spacing: 24){
                     InputField(text: $email, title: "Email Address", placeholder: "email@example.com")
-                        .autocapitalization(.none)
+//                        .autocapitalization(.none)
                     
                     InputField(text: $password, title: "Password", placeholder: "Enter your Password", isSecure: true)
                 }//vstack
@@ -41,7 +41,7 @@ struct LoginView: View {
                         Image(systemName:"arrow.forward.circle")
                     }//hstack
                     .foregroundColor(.white)
-                    .frame(width: UIScreen.main.bounds.width - 32, height: 40)
+//                    .frame(width: UIScreen.main.bounds.width - 32, height: 40)
                 }//label
                 .modifier(ButtonModifier())
                 
