@@ -12,6 +12,9 @@ struct User: Identifiable, Codable{
     let fullname: String
     let email: String
     
+    //let birthdate: Date
+    
+    
     var initials: String {
         let formatter = PersonNameComponentsFormatter()
         if let components = formatter.personNameComponents(from: fullname){

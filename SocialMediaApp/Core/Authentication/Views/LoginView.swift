@@ -10,15 +10,29 @@ import SwiftUI
 struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
+    
+    @EnvironmentObject var viewModel: AuthViewModel
+    
     var body: some View {
         NavigationStack{
             VStack{
-                //image
-                Image(systemName:"person.crop.circle.badge.checkmark")
+                RoundedRectangle(cornerRadius: 50)
+                    .frame(width: 1000, height: 300)
+                    .ignoresSafeArea()
+                    .foregroundStyle(.linearGradient(colors: [.indigo, .red], startPoint: .topLeading, endPoint: .bottomTrailing))
+                
+                Text("Sign Up")
+                    .offset(x:-100, y:-200)
+                    .foregroundColor(.white)
+                    .font(.system(size: 40, weight: .bold, design: .rounded))
+                
+                Image(systemName:"person.crop.circle.badge.questionmark")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 100, height: 120)
-                    .padding(.vertical, 32)
+                    .frame(width: 200, height: 120)
+                    .padding(.bottom, -300)
+                    .edgesIgnoringSafeArea(.all)
+                    .offset(y: -210)
                 
                 //form
                 VStack(spacing: 24){
@@ -33,7 +47,9 @@ struct LoginView: View {
                 
                 //sign in button
                 Button {
-                    // TODO
+                    Task{
+                        try await viewModel.signIn(withEmail: email, password: password)
+                    }
                 } label: {
                     HStack{
                         Text("LOG IN")
@@ -50,7 +66,8 @@ struct LoginView: View {
                 //register button
                 
                 NavigationLink{
-                    
+                    SignupView()
+                        .navigationBarBackButtonHidden()
                 }label: {
                     Text("Don't have an account?")
                     Text("Sign Up")
