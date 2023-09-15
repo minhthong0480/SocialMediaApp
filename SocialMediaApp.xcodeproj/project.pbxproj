@@ -93,11 +93,8 @@
 				BA8F0F5E2AB1B0770061A69A /* Components */,
 				BA8F0F522AB1A34B0061A69A /* Core */,
 				BA8F0F3B2AB190BE0061A69A /* GoogleService-Info.plist */,
-				057E218E2AB41FDA0015AD2D /* SectionBar.swift */,
 				BA8F0F2D2AB04A5F0061A69A /* ContentView.swift */,
 				BA8F0F2F2AB04A600061A69A /* Assets.xcassets */,
-				057E21922AB4382E0015AD2D /* Dropdown.swift */,
-				057E21902AB431020015AD2D /* ThumbnailView.swift */,
 				BA8F0F2B2AB04A5F0061A69A /* SocialMediaAppApp.swift */,
 				BA8F0F312AB04A600061A69A /* SocialMediaApp.entitlements */,
 				BA8F0F322AB04A600061A69A /* Preview Content */,
@@ -153,6 +150,9 @@
 			isa = PBXGroup;
 			children = (
 				BA8F0F662AB1C2A00061A69A /* ProfileView.swift */,
+				057E218E2AB41FDA0015AD2D /* SectionBar.swift */,
+				057E21922AB4382E0015AD2D /* Dropdown.swift */,
+				057E21902AB431020015AD2D /* ThumbnailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
