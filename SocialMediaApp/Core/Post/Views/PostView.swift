@@ -34,6 +34,7 @@ struct PostView: View {
                 VStack(alignment:.trailing) {
                     Text(viewModel.post.timestamp.formatted(date: .abbreviated, time: .shortened))
                         .font(.caption)
+//                    Text("\(viewModel.post.timestamp)")
 //                    Text(viewModel.post.timestamp, style: .date)
 //                        .font(.caption)
 //                    Text(viewModel.post.timestamp, style: .time)
@@ -71,8 +72,8 @@ struct PostView: View {
     }
 }
 
-struct PostView_Previews: PreviewProvider {
-    static var previews: some View {
-        PostView(post: Post(caption: "Hello, this is an example"))
-    }
-}
+//struct PostView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PostView(post: Post(caption: "Hello, this is an example"))
+//    }
+//}

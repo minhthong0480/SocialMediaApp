@@ -14,7 +14,16 @@ class FeedViewModel: ObservableObject {
     init() {
         getAllPosts()
     }
-    
+    func dateToString(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm E, d MMM y"
+        return formatter.string(from: date)
+    }
+    func stringToDate(string: String) -> Date {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm E, d MMM y"
+        return formatter.date(from: string) ?? Date()
+    }
     func getAllPosts() {
         //        self.posts = [Post(caption: "Example 1"), Post(caption: "Example 2"), Post(caption: "Example 3")]
         
@@ -24,13 +33,16 @@ class FeedViewModel: ObservableObject {
                 print("No documents")
                 return
             }
-            
+
             // Loop to get the "name" field inside each movie document
             self.posts = documents.map { (queryDocumentSnapshot) -> Post in
                 let data = queryDocumentSnapshot.data()
                 let caption = data["caption"] as? String ?? ""
-                return Post(caption: caption)
+                let timestamp = data["timestamp"] as? String ?? ""
+                let date = self.stringToDate(string: timestamp)
+                return Post(caption: caption, timestamp: date)
             }
         }
+        
     }
 }
