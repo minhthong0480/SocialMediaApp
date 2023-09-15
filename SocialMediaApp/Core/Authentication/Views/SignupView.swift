@@ -12,61 +12,63 @@ struct SignupView: View {
     @State private var fullname = ""
     @State private var password = ""
     @State private var confirmPassword = ""
-    
+    @EnvironmentObject var viewModel: AuthViewModel
     @State var signUpSuccess = false
     
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
         //image
-        VStack {
-            Image(systemName:"person.crop.circle.badge.questionmark")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 100, height: 120)
-                .padding(.vertical, 32)
-            
-            //form
-            VStack(spacing: 24){
-                InputField(text: $email, title: "Email Address", placeholder: "email@example.com")
-                    .autocapitalization(.none)
+        NavigationStack {
+            VStack {
+                Image(systemName:"person.crop.circle.badge.questionmark")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 120)
+                    .padding(.vertical, 32)
                 
-                InputField(text: $fullname, title: "Full Name", placeholder: "Enter Your Full Name")
-                    .autocapitalization(.none)
+                //form
+                VStack(spacing: 24){
+                    InputField(text: $email, title: "Email Address", placeholder: "email@example.com")
+                        .autocapitalization(.none)
+                    
+                    InputField(text: $fullname, title: "Full Name", placeholder: "Enter Your Full Name")
+                        .autocapitalization(.none)
+                    
+                    InputField(text: $password, title: "Password", placeholder: "Enter your Password", isSecure: true)
+                    
+                    InputField(text: $confirmPassword, title: "Confirm Password", placeholder: "Confirm your Password", isSecure: true)
+                }//vstack
+                .padding(.horizontal)
+                .padding(.top, 12)
                 
-                InputField(text: $password, title: "Password", placeholder: "Enter your Password", isSecure: true)
+                //submit button
+                Button {
+                    viewModel.createUser(withEmail: email, password: password, fullname: fullname)
+                } label: {
+                    HStack{
+                        Text("SIGN UP")
+                            .fontWeight(.bold)
+                        Image(systemName:"arrow.forward.circle")
+                    }//hstack
+                    .foregroundColor(.white)
+                    .frame(width: UIScreen.main.bounds.width - 32, height: 40)
+                }//label
+                .modifier(ButtonModifier())
                 
-                InputField(text: $confirmPassword, title: "Confirm Password", placeholder: "Confirm your Password", isSecure: true)
-            }//vstack
-            .padding(.horizontal)
-            .padding(.top, 12)
-            
-            //submit button
-            Button {
-                // TODO
-            } label: {
-                HStack{
-                    Text("SIGN UP")
-                        .fontWeight(.bold)
-                    Image(systemName:"arrow.forward.circle")
-                }//hstack
-                .foregroundColor(.white)
-                .frame(width: UIScreen.main.bounds.width - 32, height: 40)
-            }//label
-            .modifier(ButtonModifier())
-            
-            Spacer()
-            
-            Button {
-                dismiss
-            } label: {
-                HStack{
-                    Text("Already have an account?")
+                Spacer()
+                
+                NavigationLink{
+                    LoginView()
+                        .navigationBarBackButtonHidden(true)
+                        
+                }label: {
+                    Text("Already have an account? ")
                     Text("Log In")
                         .fontWeight(.bold)
-                }//hstack
-            }//label
-            
+                }//label
+                
+            }
         }//Vstack
         
     }//View
