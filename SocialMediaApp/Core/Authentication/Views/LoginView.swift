@@ -79,6 +79,15 @@ struct LoginView: View {
     }//View
 }
 
+extension LoginView: AuthFormProtocol {
+    var validForm: Bool {
+        return !email.isEmpty
+        && email.contains("@")
+        && !password.isEmpty
+        && password.count > 5
+    }
+}
+
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()

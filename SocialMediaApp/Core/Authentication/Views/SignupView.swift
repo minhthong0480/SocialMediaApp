@@ -49,7 +49,22 @@ struct SignupView: View {
                     
                     InputField(text: $password, title: "Password", placeholder: "Enter your Password", isSecure: true)
                     
-                    InputField(text: $confirmPassword, title: "Confirm Password", placeholder: "Confirm your Password", isSecure: true)
+                    ZStack(alignment: .trailing){
+                        InputField(text: $confirmPassword, title: "Confirm Password", placeholder: "Confirm your Password", isSecure: true)
+                        if !password.isEmpty && !confirmPassword.isEmpty {
+                            if password == confirmPassword {
+                                Image(systemName:"checkmark.circle")
+                                    .foregroundColor(.green)
+                                    .imageScale(.large)
+                                    .fontWeight(.bold)
+                            } else {
+                                Image(systemName:"xmark.circle")
+                                    .foregroundColor(.red)
+                                    .imageScale(.large)
+                                    .fontWeight(.bold)
+                            }
+                        }
+                    }
                 }//vstack
                 .padding(.horizontal)
                 .padding(.top, 12)
@@ -86,6 +101,16 @@ struct SignupView: View {
         }//Vstack
         
     }//View
+}
+extension SignupView: AuthFormProtocol {
+    var validForm: Bool {
+        return !email.isEmpty
+        && email.contains("@")
+        && !password.isEmpty
+        && password.count > 5
+        && !fullname.isEmpty
+        && confirmPassword == password
+    }
 }
 
 struct SignupView_Previews: PreviewProvider {
