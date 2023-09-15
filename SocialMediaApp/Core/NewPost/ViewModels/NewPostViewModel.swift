@@ -6,3 +6,16 @@
 //
 
 import Foundation
+import Firebase
+
+class NewPostViewModel: ObservableObject {
+
+    
+    func addNewPost (caption: String) {
+        
+    }
+}
+
+
+
+

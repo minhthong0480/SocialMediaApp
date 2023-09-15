@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NewPostView: View {
+    @ObservedObject var viewModel = NewPostViewModel()
     @State private var caption = ""
     @State private var placeholder = "What's on your mind?"
     var body: some View {
@@ -15,10 +16,9 @@ struct NewPostView: View {
             HStack(spacing: 20) {
                 Image(systemName: "person")
                     .resizable()
-                //                .scaledToFill()
                     .clipShape(Circle())
                     .frame(width:100, height:100)
-                //                .border(.black)
+                
                 VStack(alignment: .leading){
                     Text("John Doe")
                         .font(.title)
@@ -51,7 +51,7 @@ struct NewPostView: View {
             HStack(spacing:15) {
                 Spacer()
                 Button {
-                    
+                    viewModel.addNewPost(caption: caption)
                 } label: {
                     RoundedRectangle(cornerRadius: 20)
                         .fill(.black)

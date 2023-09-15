@@ -159,6 +159,7 @@
 			children = (
 				BA8F0F2A2AB04A5F0061A69A /* SocialMediaApp */,
 				BA8F0F292AB04A5F0061A69A /* Products */,
+				E05467642AB40E4B00815B92 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -256,6 +257,13 @@
 				45C8B5D02AB31D89000F4F3B /* Post.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		E05467642AB40E4B00815B92 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
