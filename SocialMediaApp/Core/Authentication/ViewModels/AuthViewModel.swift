@@ -6,11 +6,10 @@
 //
 
 import Foundation
-import SwiftUI
 import FirebaseAuth
 import FirebaseFirestoreSwift
 import FirebaseFirestore
-import FirebaseCoreExtension
+import Firebase
 
 protocol AuthFormProtocol {
     var validForm: Bool {get}
@@ -20,13 +19,10 @@ protocol AuthFormProtocol {
 class AuthViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
-    @State var email = ""
-    @State var password = ""
-    
-    @State var signUpSuccess = false
     
     init(){
         self.userSession = Auth.auth().currentUser
+        
         Task{
             await fetchUser()
         }
@@ -49,6 +45,7 @@ class AuthViewModel: ObservableObject {
             let user = User(id: result.user.uid, fullname: fullname, email: email)
             let encodedUser = try Firestore.Encoder().encode(user)
             try await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
+            await fetchUser()
         } catch {
             print("Error \(error.localizedDescription)")
         }
