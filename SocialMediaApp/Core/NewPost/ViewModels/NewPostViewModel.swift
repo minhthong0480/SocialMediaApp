@@ -6,13 +6,14 @@
 //
 
 import Foundation
-import Firebase
+import FirebaseFirestore
 
 class NewPostViewModel: ObservableObject {
-
+    
+    private var db = Firestore.firestore()
     
     func addNewPost (caption: String) {
-        
+        db.collection("posts").addDocument(data: ["caption": caption])
     }
 }
 

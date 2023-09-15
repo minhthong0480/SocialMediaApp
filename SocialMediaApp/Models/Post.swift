@@ -8,8 +8,8 @@
 import Foundation
 import SwiftUI
 
-struct Post: Decodable, Identifiable {
-    let id = UUID()
+struct Post: Codable, Identifiable {
+    var id: String = UUID().uuidString
     let caption: String
     let timestamp: Date
     

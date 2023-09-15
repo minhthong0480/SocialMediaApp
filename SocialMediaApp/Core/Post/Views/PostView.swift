@@ -24,10 +24,10 @@ struct PostView: View {
                     .frame(width:45, height:45)
                     //.border(.black)
                 VStack(alignment:.leading){
-                    Text("John Doe")
+                    Text("Kiet Duong")
                         .font(.headline)
                         .fontWeight(.bold)
-                    Text("@johndoe")
+                    Text("@duonganhkiet")
                         .font(.caption)
                 }
                 Spacer()
@@ -41,10 +41,13 @@ struct PostView: View {
                 }
             }
             Text(viewModel.post.caption)
+            
             RoundedRectangle(cornerRadius: 20)
                 .stroke(.black, lineWidth: 1)
                 .frame(height:400)
+            
             Divider()
+            
             HStack(spacing:15){
                 Image(systemName: "heart")
                     .resizable()
