@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		057E21942AB443040015AD2D /* SectionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057E218E2AB41FDA0015AD2D /* SectionBar.swift */; };
+		057E21952AB443230015AD2D /* ThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057E21902AB431020015AD2D /* ThumbnailView.swift */; };
+		057E21962AB443250015AD2D /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057E21922AB4382E0015AD2D /* Dropdown.swift */; };
 		BA5804DC2AB41647008AA089 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = BA5804DB2AB41647008AA089 /* FirebaseAuth */; };
 		BA5804DE2AB41647008AA089 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = BA5804DD2AB41647008AA089 /* FirebaseAuthCombine-Community */; };
 		BA5804E02AB41647008AA089 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = BA5804DF2AB41647008AA089 /* FirebaseFirestore */; };
@@ -90,8 +93,11 @@
 				BA8F0F5E2AB1B0770061A69A /* Components */,
 				BA8F0F522AB1A34B0061A69A /* Core */,
 				BA8F0F3B2AB190BE0061A69A /* GoogleService-Info.plist */,
+				057E218E2AB41FDA0015AD2D /* SectionBar.swift */,
 				BA8F0F2D2AB04A5F0061A69A /* ContentView.swift */,
 				BA8F0F2F2AB04A600061A69A /* Assets.xcassets */,
+				057E21922AB4382E0015AD2D /* Dropdown.swift */,
+				057E21902AB431020015AD2D /* ThumbnailView.swift */,
 				BA8F0F2B2AB04A5F0061A69A /* SocialMediaAppApp.swift */,
 				BA8F0F312AB04A600061A69A /* SocialMediaApp.entitlements */,
 				BA8F0F322AB04A600061A69A /* Preview Content */,
@@ -147,9 +153,6 @@
 			isa = PBXGroup;
 			children = (
 				BA8F0F662AB1C2A00061A69A /* ProfileView.swift */,
-				057E218E2AB41FDA0015AD2D /* SectionBar.swift */,
-				057E21902AB431020015AD2D /* ThumbnailView.swift */,
-				057E21922AB4382E0015AD2D /* Dropdown.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -270,16 +273,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA8F0F2E2AB04A5F0061A69A /* ContentView.swift in Sources */,
-				057E218F2AB41FDA0015AD2D /* SectionBar.swift in Sources */,
+				057E21942AB443040015AD2D /* SectionBar.swift in Sources */,
 				BA8F0F2C2AB04A5F0061A69A /* SocialMediaAppApp.swift in Sources */,
-				057E21932AB4382E0015AD2D /* Dropdown.swift in Sources */,
+				057E21962AB443250015AD2D /* Dropdown.swift in Sources */,
 				BA8F0F6B2AB1C5100061A69A /* UserModel.swift in Sources */,
 				BA8F0F5A2AB1A9970061A69A /* LoginView.swift in Sources */,
 				BA8F0F572AB1A37F0061A69A /* SignupView.swift in Sources */,
 				BA8F0F672AB1C2A00061A69A /* ProfileView.swift in Sources */,
 				BAD6ADE72AB399D6008718D7 /* AuthViewModel.swift in Sources */,
 				BA8F0F622AB1B0D20061A69A /* InputField.swift in Sources */,
-				057E21912AB431020015AD2D /* ThumbnailView.swift in Sources */,
+				057E21952AB443230015AD2D /* ThumbnailView.swift in Sources */,
 				BA8F0F692AB1C3550061A69A /* Modifier.swift in Sources */,
 				BAD6ADE42AB3950D008718D7 /* SettingRowView.swift in Sources */,
 			);
