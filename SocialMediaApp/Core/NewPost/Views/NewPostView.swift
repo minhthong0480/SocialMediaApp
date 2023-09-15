@@ -20,10 +20,10 @@ struct NewPostView: View {
                     .frame(width:100, height:100)
                 
                 VStack(alignment: .leading){
-                    Text("John Doe")
+                    Text("KietDuong")
                         .font(.title)
                         .fontWeight(.bold)
-                    Text("@johndoe")
+                    Text("@duonganhkiet")
                 }
             }
             
