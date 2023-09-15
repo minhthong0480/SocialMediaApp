@@ -10,15 +10,24 @@ import SwiftUI
 struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
+    
+    @EnvironmentObject var viewModel: AuthViewModel
+    
     var body: some View {
         NavigationStack{
             VStack{
+                Color.gray
+                    .edgesIgnoringSafeArea(.top)
+                    .frame(height: 200)
+                    
                 //image
                 Image(systemName:"person.crop.circle.badge.checkmark")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 100, height: 120)
-                    .padding(.vertical, 32)
+                    .padding(.bottom, -100)
+                    .edgesIgnoringSafeArea(.all)
+                    .offset(y: -80)
                 
                 //form
                 VStack(spacing: 24){
@@ -33,7 +42,9 @@ struct LoginView: View {
                 
                 //sign in button
                 Button {
-                    // TODO
+                    Task{
+                        viewModel.signIn(withEmail: email, password: password)
+                    }
                 } label: {
                     HStack{
                         Text("LOG IN")
@@ -50,7 +61,8 @@ struct LoginView: View {
                 //register button
                 
                 NavigationLink{
-                    
+                    SignupView()
+                        .navigationBarBackButtonHidden()
                 }label: {
                     Text("Don't have an account?")
                     Text("Sign Up")
