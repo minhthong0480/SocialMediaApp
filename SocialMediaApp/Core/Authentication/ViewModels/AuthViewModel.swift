@@ -22,13 +22,16 @@ class AuthViewModel: ObservableObject {
     
     init(){
         self.userSession = Auth.auth().currentUser
+        Task{
+            await fetchUser()
+        }
     }
     
     func signIn(withEmail email: String, password: String) async throws {
         do{
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             self.userSession = result.user
-//            await fetchUser()
+            await fetchUser()
         } catch{
             print("DEBUG: Fialed to log in. Error \(error.localizedDescription)")
         }

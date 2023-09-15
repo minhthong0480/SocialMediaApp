@@ -21,11 +21,23 @@ struct SignupView: View {
         //image
         NavigationStack {
             VStack {
+                RoundedRectangle(cornerRadius: 50)
+                    .frame(width: 1000, height: 300)
+                    .ignoresSafeArea()
+                    .foregroundStyle(.linearGradient(colors: [.indigo, .red], startPoint: .topLeading, endPoint: .bottomTrailing))
+                
+                Text("Sign Up")
+                    .offset(x:-100, y:-200)
+                    .foregroundColor(.white)
+                    .font(.system(size: 40, weight: .bold, design: .rounded))
+                
                 Image(systemName:"person.crop.circle.badge.questionmark")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 100, height: 120)
-                    .padding(.vertical, 32)
+                    .frame(width: 200, height: 120)
+                    .padding(.bottom, -300)
+                    .edgesIgnoringSafeArea(.all)
+                    .offset(y: -210)
                 
                 //form
                 VStack(spacing: 24){
@@ -63,7 +75,7 @@ struct SignupView: View {
                 NavigationLink{
                     LoginView()
                         .navigationBarBackButtonHidden(true)
-                        
+                    
                 }label: {
                     Text("Already have an account? ")
                     Text("Log In")
