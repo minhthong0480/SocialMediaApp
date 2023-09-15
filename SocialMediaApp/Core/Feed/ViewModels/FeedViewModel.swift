@@ -11,19 +11,23 @@ import FirebaseFirestore
 class FeedViewModel: ObservableObject {
     @Published var posts = [Post]()
     private var db = Firestore.firestore()
+    
     init() {
         getAllPosts()
     }
+    
     func dateToString(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm E, d MMM y"
         return formatter.string(from: date)
     }
+    
     func stringToDate(string: String) -> Date {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm E, d MMM y"
         return formatter.date(from: string) ?? Date()
     }
+    
     func getAllPosts() {
         //        self.posts = [Post(caption: "Example 1"), Post(caption: "Example 2"), Post(caption: "Example 3")]
         
@@ -40,7 +44,8 @@ class FeedViewModel: ObservableObject {
                 let caption = data["caption"] as? String ?? ""
                 let timestamp = data["timestamp"] as? String ?? ""
                 let date = self.stringToDate(string: timestamp)
-                return Post(caption: caption, timestamp: date)
+                let userId = data["userId"] as? String ?? ""
+                return Post(caption: caption, timestamp: date, userId: userId)
             }
         }
         

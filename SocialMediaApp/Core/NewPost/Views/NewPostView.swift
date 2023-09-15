@@ -52,6 +52,7 @@ struct NewPostView: View {
                 Spacer()
                 Button {
                     viewModel.addNewPost(caption: caption)
+                    self.caption = ""
                 } label: {
                     RoundedRectangle(cornerRadius: 20)
                         .fill(.black)
