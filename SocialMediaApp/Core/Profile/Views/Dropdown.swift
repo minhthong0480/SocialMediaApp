@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Dropdown: View {
+    @EnvironmentObject var viewModel: AuthViewModel
     @State private var selection = "Red"
     let colors = ["Red", "Green", "Blue", "Black", "Tartan"]
     
@@ -18,7 +19,7 @@ struct Dropdown: View {
             // Button, that when tapped shows 3 options
             Menu {
                 Button{
-                    print("Sign out")
+                    viewModel.signOut()
                 }label:{
                     SettingRowView(imageName: "person.crop.circle.fill.badge.minus", title: "Sign Out", tinColor: .red)
                 }//label

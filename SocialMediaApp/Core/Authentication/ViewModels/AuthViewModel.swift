@@ -10,6 +10,7 @@ import SwiftUI
 import FirebaseAuth
 import FirebaseFirestoreSwift
 import FirebaseFirestore
+import FirebaseCoreExtension
 
 @MainActor
 class AuthViewModel: ObservableObject {
@@ -59,15 +60,11 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    func deleteAccount() {
-        
-    }
-    
     func fetchUser() async {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         guard let snapshot = try? await Firestore.firestore().collection("users").document(uid).getDocument() else {return}
         self.currentUser = try?snapshot.data(as:User.self)
         
-//        print("DEBUG: Current user is: \(self.currentUser)")
+        print("DEBUG: Current user is: \(self.currentUser)")
     }
 }
