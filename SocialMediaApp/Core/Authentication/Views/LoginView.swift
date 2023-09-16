@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct LoginView: View {
+    @ObservedObject var recentSignIn: RecentSignIn
+    
     @State private var email = ""
     @State private var password = ""
     
@@ -21,7 +23,7 @@ struct LoginView: View {
                     .ignoresSafeArea()
                     .foregroundStyle(.linearGradient(colors: [.indigo, .red], startPoint: .topLeading, endPoint: .bottomTrailing))
                 
-                Text("Sign Up")
+                Text("Log in")
                     .offset(x:-100, y:-200)
                     .foregroundColor(.white)
                     .font(.system(size: 40, weight: .bold, design: .rounded))
@@ -36,7 +38,7 @@ struct LoginView: View {
                 
                 //form
                 VStack(spacing: 24){
-                    InputField(text: $email, title: "Email Address", placeholder: "email@example.com")
+                    InputField(text: $email, title: "Email Address", placeholder:"example@email.com")
                         .autocapitalization(.none)
                     
                     InputField(text: $password, title: "Password", placeholder: "Enter your Password", isSecure: true)
@@ -50,6 +52,9 @@ struct LoginView: View {
                     Task{
                         try await viewModel.signIn(withEmail: email, password: password)
                     }
+                    recentSignIn.recentAccount = email
+                    recentSignIn.updateStoredPassword(password)
+                    
                 } label: {
                     HStack{
                         Text("LOG IN")
@@ -90,6 +95,7 @@ extension LoginView: AuthFormProtocol {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        LoginView(recentSignIn: RecentSignIn())
+            .environmentObject(AuthViewModel())
     }
 }

@@ -14,8 +14,9 @@ struct ContentView: View {
         Group {
             if viewModel.userSession != nil {
                 ProfileView()
+                    .environmentObject(AuthViewModel())
             } else {
-                LoginView()
+                LoginView(recentSignIn: RecentSignIn())
             }
         }
     }
@@ -24,5 +25,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(AuthViewModel())
     }
 }
