@@ -24,9 +24,16 @@ class AuthViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
     
+    private(set) var context = LAContext()
+    private(set) var canEvaluatePolicy = false
+    @Published private(set) var biometryType: LABiometryType = .none
+    @Published private(set) var errorDescription: String?
+    @Published var showAlert = false
+    
     init(){
         self.userSession = Auth.auth().currentUser
-        
+        self.recentSignIn = RecentSignIn()
+        self.getBiometryType()
         Task{
             await fetchUser()
         }
@@ -74,60 +81,44 @@ class AuthViewModel: ObservableObject {
     }
     
     // MARK: Biometric authentication
-    private(set) var context = LAContext()
-    private(set) var canEvaluatePolicy = false
-    @Published private(set) var biometryType: LABiometryType = .none
-    @Published private(set) var errorDescription: String?
-    @Published var showAlert = false
-    
     
     func getBiometryType() {
         canEvaluatePolicy = context.canEvaluatePolicy(
             .deviceOwnerAuthenticationWithBiometrics,
             error: nil)
         biometryType = context.biometryType
+        print("\(biometryType)")
     }
     
     
-    func biometricSignin() async throws{
+    func authenticateWithBiometric() async {
+        print("Starting biometric")
+        context = LAContext()
         
-        // Retrieve last used Email
-        guard let lastEmail = recentSignIn.recentAccount as? String else { return }
-        
-        let context = LAContext()
-        
+        print("Biometric available: \(canEvaluatePolicy)")
         if canEvaluatePolicy {
-            let reason = "Log into a previously saved account"
+            let reason = "Log into saved Account"
             
             do {
                 let success = try await context.evaluatePolicy(
                     .deviceOwnerAuthenticationWithBiometrics,
                     localizedReason: reason)
-                
                 if success {
                     DispatchQueue.main.async {
-                        // Authenticate user here
-                        try await self.signInWithSavedPassword(lastEmail)
+                        let lastEmail = self.recentSignIn.recentAccount
+                        let lastPassword = self.recentSignIn.getStoredPassword()
+                        Task {
+                            try await self.signIn(withEmail:lastEmail!, password:lastPassword)
+                        }
                     }
                 }
             } catch {
                 print(error.localizedDescription)
                 DispatchQueue.main.async {
                     self.errorDescription = error.localizedDescription
-                    self.showAlert = true
                     self.biometryType = .none
                 }
             }
-        }
-    }
-    
-    func signInWithSavedPassword( _ email: String ) async {
-        guard !email.isEmpty else { return }
-        let password = recentSignIn.getStoredPassword()
-        do {
-            try await self.signIn(withEmail: email, password: password)
-        } catch {
-            print("Unhandled Error")
         }
     }
 }
