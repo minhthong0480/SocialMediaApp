@@ -21,7 +21,7 @@ struct LoginView: View {
                     .ignoresSafeArea()
                     .foregroundStyle(.linearGradient(colors: [.indigo, .red], startPoint: .topLeading, endPoint: .bottomTrailing))
                 
-                Text("Sign Up")
+                Text("Log In")
                     .offset(x:-100, y:-200)
                     .foregroundColor(.white)
                     .font(.system(size: 40, weight: .bold, design: .rounded))

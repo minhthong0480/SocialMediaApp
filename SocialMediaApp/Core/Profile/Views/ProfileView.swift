@@ -1,109 +1,104 @@
 //
 //  ProfileView.swift
-//  SocialMediaApp
+//  SocialMediaTest
 //
-//  Created by Nguyen Hoang Minh Thong on 13/09/2023.
+//  Created by Nguyen Hoang Minh Thong on 16/09/2023.
 //
 
 import SwiftUI
+import PhotosUI
 
 struct ProfileView: View {
-    @EnvironmentObject var viewModel: AuthViewModel
-    var body: some View {
-        if let user = viewModel.currentUser {
-            ScrollView {
-                ZStack{
-                    VStack{
-                        HStack {
-                            Circle()
-                                .stroke(.blue, lineWidth:2)
-                                .frame(width: 200)
-                                .padding(.leading,20)
-                                .overlay(
-                                    Image("profileAvatar")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 130, height: 130)
-                                        .padding(.leading,20)
-                            )
-                            Spacer()
-                            Dropdown()
-                                .padding(.trailing, 15)
-                                .padding(.top, -80)
-                                
-                                
-                        }
-                        Image(systemName: "gearshape.fill")
-                            .font(.system(size: 26))
-                            .foregroundColor(.gray)
-                            .offset(x: -15, y: -30)
-                        
-                        Text(user.fullname)
-                            .fontWeight(.semibold)
-                            .padding(.top, -30)
-                            .offset(x: -95, y: 0)
-                        
-                        Text(user.email)
-                            .font(.footnote)
-                            .foregroundColor(.gray)
-                            .padding(.top, -20)
-                            .offset(x: -95, y: 0)
-                        
-                        HStack {
-                            Section("Bio"){
-                                SectionBar(length: 270)
-                                Image(systemName: "pencil")
-                                    .foregroundColor(.gray)
-                                    .font(.system(size: 20))
-                            }// Section
-                            .font(.system(size: 30))
-                            .foregroundColor(.gray)
-                            .padding(.trailing, 10)
-                            
-                        }// Hstack
-                        VStack{
-                            Text("DOB: ")
-                            Text("Gender: ")
-                            Text("Currrently Works at:")
-                            Text("blah blah")
-                        }// VStack
-                        
-                        HStack {
-                            Section("Posts"){
-                                SectionBar(length: 260)
-                            }
-                            Image(systemName: "plus")
-                                .font(.system(size: 20))
-                        }// HStack
-                        .font(.system(size: 30))
-                        .foregroundColor(.gray)
-                        
-                        
-                        HStack {
-                            ThumbnailView()
-                            ThumbnailView()
-                            
-                            
-                        }// HStack
-                        HStack {
-                            ThumbnailView()
-                            ThumbnailView()
-                            
-                        }// HStack
-                        HStack {
-                            ThumbnailView()
-                            ThumbnailView()
-                            
-                        }// HStack
-                        
-                        
-                        
-                    }// Vstack
-                    
-                }//ZStack
-            }// ScrollView
+    @StateObject var viewModel = ProfileViewModel()
+    @EnvironmentObject var viewAuthModel: AuthViewModel
+    
+    enum ProfileRowViewModel: Int, CaseIterable, Identifiable{
+        
+        case email
+        case fullname
+        case phonenumber
+        case gender
+        
+        
+        func userData(viewAuthModel: AuthViewModel) -> String {
+                switch self {
+                case .email: return viewAuthModel.currentUser?.email ?? ""
+                case .fullname: return viewAuthModel.currentUser?.fullname ?? ""
+                case .phonenumber: return "phone"
+                case .gender: return "person.2"
+                }
+            }
+        
+        var title: String {
+            switch self {
+            case .email: return "Email"
+            case .fullname: return "FullName"
+            case .phonenumber: return "Phone Number"
+            case .gender: return "Gender"
+            }
         }
+        
+        var imageName: String {
+            switch self {
+            case .email: return "envelope"
+            case .fullname: return "person"
+            case .phonenumber: return "phone"
+            case .gender: return "person.2"
+            }
+        }
+        
+        
+        var id: Int {return self.rawValue}
     }
+
+    var body: some View {
+        VStack{
+            if let user = viewAuthModel.currentUser{
+                PhotosPicker(selection: $viewModel.selectedItem){
+                    if let profileImage = viewModel.profileImage{
+                        profileImage
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 80, height: 80)
+                            .clipShape(Circle())
+                    } else {
+                        ProfilePictureView(user: user, size: .xLarge)
+                    }
+                }
+                Text(user.fullname)
+                    .font(.title)
+                    .fontWeight(.semibold)
+                
+                
+                List{
+                    Section{
+                        ForEach(ProfileRowViewModel.allCases, id: \.self) { option in
+                            HStack {
+                                Image(systemName: option.imageName)
+                                    .resizable()
+                                    .frame(width: 24, height: 24)
+                                    .foregroundColor(Color(.systemPurple))
+                                
+                                Text(option.title)
+                                Text(option.userData(viewAuthModel: viewAuthModel))
+                            }
+                        }
+                    }
+                    Section{
+                        Button("Save Edit"){
+                            
+                        }
+                        Button("Sign Out"){
+                            viewAuthModel.signOut()
+                        }
+                        
+                    }
+                    .foregroundColor(.red)
+                }
+            }
+
+            }
+                }
 }
 
 struct ProfileView_Previews: PreviewProvider {

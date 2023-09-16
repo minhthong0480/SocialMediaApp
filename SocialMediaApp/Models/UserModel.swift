@@ -8,9 +8,10 @@
 import Foundation
 
 struct User: Identifiable, Codable{
-    let id: String
+    var id = NSUUID().uuidString
     let fullname: String
     let email: String
+    var profileImageUrl: String?
     
     //let birthdate: Date
     
@@ -27,5 +28,5 @@ struct User: Identifiable, Codable{
 }
 
 extension User {
-    static var mockUser = User(id: NSUUID().uuidString, fullname: "Thong Nguyen", email: "thongtest1@gmail.com")
+    static var mockUser = User(id: NSUUID().uuidString, fullname: "Thong Nguyen", email: "thongtest1@gmail.com", profileImageUrl: "batman")
 }

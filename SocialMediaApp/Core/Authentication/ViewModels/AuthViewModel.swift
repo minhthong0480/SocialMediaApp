@@ -15,7 +15,7 @@ protocol AuthFormProtocol {
     var validForm: Bool {get}
 }
 
-@MainActor
+
 class AuthViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
@@ -28,6 +28,7 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     func signIn(withEmail email: String, password: String) async throws {
         do{
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
@@ -38,6 +39,7 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     func createUser(withEmail email: String, password: String, fullname: String) async throws {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
