@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import SwiftUI
 import FirebaseAuth
 import FirebaseFirestoreSwift
 import FirebaseFirestore
 import Firebase
+import LocalAuthentication
 
 protocol AuthFormProtocol {
     var validForm: Bool {get}
@@ -17,6 +19,8 @@ protocol AuthFormProtocol {
 
 @MainActor
 class AuthViewModel: ObservableObject {
+    @ObservedObject var recentSignIn: RecentSignIn
+    
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
     
@@ -27,14 +31,14 @@ class AuthViewModel: ObservableObject {
             await fetchUser()
         }
     }
-    
+    // MARK: Credential Authentication
     func signIn(withEmail email: String, password: String) async throws {
         do{
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             self.userSession = result.user
             await fetchUser()
         } catch{
-            print("DEBUG: Fialed to log in. Error \(error.localizedDescription)")
+            print("DEBUG: Failed to log in. Error \(error.localizedDescription)")
         }
     }
     
@@ -57,7 +61,7 @@ class AuthViewModel: ObservableObject {
             self.userSession = nil
             self.currentUser = nil
         } catch {
-            print("DEBUG: Fialed to sign out. Error \(error.localizedDescription)")
+            print("DEBUG: Failed to sign out. Error \(error.localizedDescription)")
         }
     }
     
@@ -67,5 +71,63 @@ class AuthViewModel: ObservableObject {
         self.currentUser = try?snapshot.data(as:User.self)
         
         print("DEBUG: Current user is: \(self.currentUser)")
+    }
+    
+    // MARK: Biometric authentication
+    private(set) var context = LAContext()
+    private(set) var canEvaluatePolicy = false
+    @Published private(set) var biometryType: LABiometryType = .none
+    @Published private(set) var errorDescription: String?
+    @Published var showAlert = false
+    
+    
+    func getBiometryType() {
+        canEvaluatePolicy = context.canEvaluatePolicy(
+            .deviceOwnerAuthenticationWithBiometrics,
+            error: nil)
+        biometryType = context.biometryType
+    }
+    
+    
+    func biometricSignin() async throws{
+        
+        // Retrieve last used Email
+        guard let lastEmail = recentSignIn.recentAccount as? String else { return }
+        
+        let context = LAContext()
+        
+        if canEvaluatePolicy {
+            let reason = "Log into a previously saved account"
+            
+            do {
+                let success = try await context.evaluatePolicy(
+                    .deviceOwnerAuthenticationWithBiometrics,
+                    localizedReason: reason)
+                
+                if success {
+                    DispatchQueue.main.async {
+                        // Authenticate user here
+                        try await self.signInWithSavedPassword(lastEmail)
+                    }
+                }
+            } catch {
+                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    self.errorDescription = error.localizedDescription
+                    self.showAlert = true
+                    self.biometryType = .none
+                }
+            }
+        }
+    }
+    
+    func signInWithSavedPassword( _ email: String ) async {
+        guard !email.isEmpty else { return }
+        let password = recentSignIn.getStoredPassword()
+        do {
+            try await self.signIn(withEmail: email, password: password)
+        } catch {
+            print("Unhandled Error")
+        }
     }
 }
