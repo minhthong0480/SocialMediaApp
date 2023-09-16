@@ -12,6 +12,7 @@ struct LoginView: View {
     
     @State private var email = ""
     @State private var password = ""
+    @State private var image = ""
     
     @EnvironmentObject var viewModel: AuthViewModel
     
@@ -48,23 +49,36 @@ struct LoginView: View {
                 
                 
                 //sign in button
-                Button {
-                    Task{
-                        try await viewModel.signIn(withEmail: email, password: password)
-                    }
-                    recentSignIn.recentAccount = email
-                    recentSignIn.updateStoredPassword(password)
-                    
-                } label: {
-                    HStack{
-                        Text("LOG IN")
-                            .fontWeight(.bold)
-                        Image(systemName:"arrow.forward.circle")
-                    }//hstack
-                    .foregroundColor(.white)
-                    .frame(width: UIScreen.main.bounds.width - 32, height: 40)
-                }//label
+                VStack(spacing: 30) {
+                    Button {
+                        Task{
+                            try await viewModel.signIn(withEmail: email, password: password)
+                        }
+                        recentSignIn.recentAccount = email
+                        recentSignIn.updateStoredPassword(password)
+                        
+                    } label: {
+                        HStack{
+                            Text("LOG IN")
+                                .fontWeight(.bold)
+                            Image(systemName:"arrow.forward.circle")
+                        }//hstack
+                        .foregroundColor(.white)
+                        .frame(width: UIScreen.main.bounds.width - 32, height: 40)
+                    }//label
                 .modifier(ButtonModifier())
+                    
+                    
+                    Button {
+                        Task.init {
+                            await viewModel.authenticateWithBiometric()
+                        }
+                    } label: {
+                        Image(systemName: (viewModel.biometryType == .faceID) ? "faceid" : "touchid")
+                            .resizable()
+                            .frame(maxWidth: 60, maxHeight: 60)
+                    }
+                }
                 
                 Spacer()
                 
