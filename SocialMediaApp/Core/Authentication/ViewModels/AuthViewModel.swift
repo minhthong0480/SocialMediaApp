@@ -17,7 +17,7 @@ protocol AuthFormProtocol {
     var validForm: Bool {get}
 }
 
-@MainActor
+
 class AuthViewModel: ObservableObject {
     @ObservedObject var recentSignIn: RecentSignIn
     
@@ -39,6 +39,7 @@ class AuthViewModel: ObservableObject {
         }
     }
     // MARK: Credential Authentication
+    @MainActor
     func signIn(withEmail email: String, password: String) async throws {
         do{
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
@@ -49,11 +50,12 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     func createUser(withEmail email: String, password: String, fullname: String) async throws {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
-            let user = User(id: result.user.uid, fullname: fullname, email: email)
+            let user = User(uid: result.user.uid, fullname: fullname, email: email)
             let encodedUser = try Firestore.Encoder().encode(user)
             try await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
             await fetchUser()
@@ -79,6 +81,8 @@ class AuthViewModel: ObservableObject {
         
         print("DEBUG: Current user is: \(self.currentUser)")
     }
+    
+    
     
     // MARK: Biometric authentication
     
