@@ -17,7 +17,6 @@ protocol AuthFormProtocol {
     var validForm: Bool {get}
 }
 
-
 class AuthViewModel: ObservableObject {
     @ObservedObject var recentSignIn: RecentSignIn
     
@@ -38,6 +37,7 @@ class AuthViewModel: ObservableObject {
             await fetchUser()
         }
     }
+    
     // MARK: Credential Authentication
     @MainActor
     func signIn(withEmail email: String, password: String) async throws {
@@ -69,17 +69,19 @@ class AuthViewModel: ObservableObject {
             try Auth.auth().signOut()
             self.userSession = nil
             self.currentUser = nil
+            
         } catch {
             print("DEBUG: Failed to sign out. Error \(error.localizedDescription)")
         }
     }
     
+    @MainActor
     func fetchUser() async {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         guard let snapshot = try? await Firestore.firestore().collection("users").document(uid).getDocument() else {return}
         self.currentUser = try?snapshot.data(as:User.self)
         
-        print("DEBUG: Current user is: \(self.currentUser)")
+        print("DEBUG: Current user is: \(currentUser)")
     }
     
     

@@ -12,6 +12,10 @@ struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
     @EnvironmentObject var viewAuthModel: AuthViewModel
     
+    @State private var shouldNavigateToLogin = false
+    
+    
+    
     enum ProfileRowViewModel: Int, CaseIterable, Identifiable{
         
         case email
@@ -21,13 +25,13 @@ struct ProfileView: View {
         
         
         func userData(viewAuthModel: AuthViewModel) -> String {
-                switch self {
-                case .email: return viewAuthModel.currentUser?.email ?? ""
-                case .fullname: return viewAuthModel.currentUser?.fullname ?? ""
-                case .phonenumber: return "phone"
-                case .gender: return "person.2"
-                }
+            switch self {
+            case .email: return viewAuthModel.currentUser?.email ?? ""
+            case .fullname: return viewAuthModel.currentUser?.fullname ?? ""
+            case .phonenumber: return "phone"
+            case .gender: return "person.2"
             }
+        }
         
         var title: String {
             switch self {
@@ -50,56 +54,64 @@ struct ProfileView: View {
         
         var id: Int {return self.rawValue}
     }
-
+    
     var body: some View {
-        VStack{
-            if let user = viewAuthModel.currentUser{
-                PhotosPicker(selection: $viewModel.selectedItem){
-                    if let profileImage = viewModel.profileImage{
-                        profileImage
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 80, height: 80)
-                            .clipShape(Circle())
-                    } else {
-                        ProfilePictureView(user: user, size: .xLarge)
+        NavigationStack {
+            VStack{
+                if let user = viewAuthModel.currentUser{
+                    PhotosPicker(selection: $viewModel.selectedItem){
+                        if let profileImage = viewModel.profileImage{
+                            profileImage
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 80, height: 80)
+                                .clipShape(Circle())
+                        } else {
+                            ProfilePictureView(user: user, size: .xLarge)
+                        }
                     }
-                }
-                Text(user.fullname)
-                    .font(.title)
-                    .fontWeight(.semibold)
-                
-                
-                List{
-                    Section{
-                        ForEach(ProfileRowViewModel.allCases, id: \.self) { option in
-                            HStack {
-                                Image(systemName: option.imageName)
-                                    .resizable()
-                                    .frame(width: 24, height: 24)
-                                    .foregroundColor(Color(.systemPurple))
-                                
-                                Text(option.title)
-                                Text(option.userData(viewAuthModel: viewAuthModel))
+                    Text(user.fullname)
+                        .font(.title)
+                        .fontWeight(.semibold)
+                    
+                    
+                    List{
+                        Section{
+                            ForEach(ProfileRowViewModel.allCases, id: \.self) { option in
+                                HStack {
+                                    Image(systemName: option.imageName)
+                                        .resizable()
+                                        .frame(width: 24, height: 24)
+                                        .foregroundColor(Color(.systemPurple))
+                                    
+                                    Text(option.title)
+                                    Text(option.userData(viewAuthModel: viewAuthModel))
+                                }
                             }
                         }
-                    }
-                    Section{
-                        Button("Save Edit"){
+                        Section {
                             
-                        }
-                        Button("Sign Out"){
-                            viewAuthModel.signOut()
+                            Button("Sign Out") {
+                                viewAuthModel.signOut()
+                                //                                    shouldNavigateToLogin = true // Activate the navigation link
+                            }
                         }
                         
+                        
+                        
+                        
+                        
                     }
-                    .foregroundColor(.red)
                 }
+                
             }
-
-            }
-                }
+            
+        }
+        
+    }
+    
 }
+
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {

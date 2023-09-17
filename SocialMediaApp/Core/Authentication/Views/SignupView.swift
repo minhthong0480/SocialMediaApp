@@ -6,13 +6,15 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct SignupView: View {
     @State private var email = ""
     @State private var fullname = ""
     @State private var password = ""
     @State private var confirmPassword = ""
-    @EnvironmentObject var viewModel: AuthViewModel
+    @EnvironmentObject var viewAuthModel: AuthViewModel
+    @StateObject var viewModel = ProfileViewModel()
     @State var signUpSuccess = false
     
     @Environment(\.dismiss) var dismiss
@@ -41,6 +43,21 @@ struct SignupView: View {
                 
                 //form
                 VStack(spacing: 24){
+                    PhotosPicker(selection: $viewModel.selectedItem){
+                        if let profileImage = viewModel.profileImage{
+                            profileImage
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 80, height: 80)
+                                .clipShape(Circle())
+                        } else {
+                            Image(systemName: "person.circle.fill")
+                                .resizable()
+                                .frame(width: 80, height: 80)
+                                .foregroundColor(Color(.gray))
+                        }
+                    }
+                    
                     InputField(text: $email, title: "Email Address", placeholder: "email@example.com")
                         .autocapitalization(.none)
                     
@@ -72,7 +89,7 @@ struct SignupView: View {
                 //submit button
                 Button {
                     Task{
-                        try await viewModel.createUser(withEmail: email, password: password, fullname: fullname)
+                        try await viewAuthModel.createUser(withEmail: email, password: password, fullname: fullname)
                     }
                 } label: {
                     HStack{
