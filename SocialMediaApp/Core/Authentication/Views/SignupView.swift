@@ -43,20 +43,20 @@ struct SignupView: View {
                 
                 //form
                 VStack(spacing: 24){
-                    PhotosPicker(selection: $viewModel.selectedItem){
-                        if let profileImage = viewModel.profileImage{
-                            profileImage
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 80, height: 80)
-                                .clipShape(Circle())
-                        } else {
-                            Image(systemName: "person.circle.fill")
-                                .resizable()
-                                .frame(width: 80, height: 80)
-                                .foregroundColor(Color(.gray))
-                        }
-                    }
+//                    PhotosPicker(selection: $viewModel.selectedItem){
+//                        if let profileImage = viewModel.profileImage{
+//                            profileImage
+//                                .resizable()
+//                                .scaledToFill()
+//                                .frame(width: 80, height: 80)
+//                                .clipShape(Circle())
+//                        } else {
+//                            Image(systemName: "person.circle.fill")
+//                                .resizable()
+//                                .frame(width: 80, height: 80)
+//                                .foregroundColor(Color(.gray))
+//                        }
+//                    }
                     
                     InputField(text: $email, title: "Email Address", placeholder: "email@example.com")
                         .autocapitalization(.none)

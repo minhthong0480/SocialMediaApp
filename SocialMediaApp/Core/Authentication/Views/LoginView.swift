@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @ObservedObject var recentSignIn: RecentSignIn
+    @StateObject var recentSignIn: RecentSignIn
     
     @State private var email = ""
     @State private var password = ""
