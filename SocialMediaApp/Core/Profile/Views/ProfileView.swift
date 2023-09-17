@@ -96,11 +96,6 @@ struct ProfileView: View {
                                 //                                    shouldNavigateToLogin = true // Activate the navigation link
                             }
                         }
-                        
-                        
-                        
-                        
-                        
                     }
                 }
                 
