@@ -88,7 +88,7 @@ struct SignupView: View {
                 Spacer()
                 
                 NavigationLink{
-                    LoginView()
+                    LoginView(recentSignIn: RecentSignIn())
                         .navigationBarBackButtonHidden(true)
                     
                 }label: {
