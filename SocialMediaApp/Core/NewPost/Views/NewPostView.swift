@@ -11,6 +11,8 @@ struct NewPostView: View {
     @ObservedObject var viewModel = NewPostViewModel()
     @State private var caption = ""
     @State private var placeholder = "What's on your mind?"
+    @State private var showingAlert = false
+    @State private var message = ""
     var body: some View {
         VStack(alignment: .leading) {
             HStack(spacing: 20) {
@@ -51,8 +53,16 @@ struct NewPostView: View {
             HStack(spacing:15) {
                 Spacer()
                 Button {
-                    viewModel.addNewPost(caption: caption)
-                    self.caption = ""
+                    if (self.caption != "") {
+                        viewModel.addNewPost(caption: caption)
+                        self.caption = ""
+                        self.message = "New post created"
+                        self.showingAlert.toggle()
+                    } else {
+                        self.message = "Caption cannot be empty"
+                        self.showingAlert.toggle()
+                    }
+                    
                 } label: {
                     RoundedRectangle(cornerRadius: 20)
                         .fill(.black)
@@ -69,7 +79,9 @@ struct NewPostView: View {
             Spacer()
         } //VStack
         .padding()
-        //        .frame(width: UIScreen.main.bounds.width - 40)
+        .alert(message, isPresented: $showingAlert) {
+            Button("OK", role: .cancel) { }
+        }
     }
     
 }

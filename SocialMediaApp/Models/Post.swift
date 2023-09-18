@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-import Firebase
+import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct Post: Identifiable {
