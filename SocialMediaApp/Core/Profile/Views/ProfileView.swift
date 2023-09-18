@@ -59,7 +59,7 @@ struct ProfileView: View {
         NavigationStack {
             VStack{
                 if let user = viewAuthModel.currentUser{
-                    PhotosPicker(selection: $viewModel.selectedItem){
+                    
                         if let profileImage = viewModel.profileImage{
                             profileImage
                                 .resizable()
@@ -69,7 +69,7 @@ struct ProfileView: View {
                         } else {
                             ProfilePictureView(user: user, size: .xLarge)
                         }
-                    }
+                    
                     Text(user.fullname)
                         .font(.title)
                         .fontWeight(.semibold)

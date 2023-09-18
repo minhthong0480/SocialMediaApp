@@ -47,7 +47,7 @@ struct SignupView: View {
                                     .padding()
                                     .clipShape(Circle())
                             } else {
-                                Image(systemName: "person.crop.rectangle.badge.plus")
+                                Image(systemName: "person.crop.circle.badge.plus")
                                     .resizable()
                                     .scaledToFill()
                                     .frame(width: 100, height: 120)
