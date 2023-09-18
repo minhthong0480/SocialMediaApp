@@ -93,15 +93,14 @@ struct ProfileView: View {
                             
                             Button("Sign Out") {
                                 viewAuthModel.signOut()
-                                //                                    shouldNavigateToLogin = true // Activate the navigation link
                             }
                         }
                     }
-                }
+                }//if statement
                 
-            }
+            }//Vstack
             
-        }
+        }//Navigationstack
         
     }
     

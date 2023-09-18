@@ -27,36 +27,43 @@ struct SignupView: View {
                     .frame(width: 1000, height: 300)
                     .ignoresSafeArea()
                     .foregroundStyle(.linearGradient(colors: [.indigo, .red], startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .padding(.bottom, -150)
                 
                 Text("Sign Up")
-                    .offset(x:-100, y:-200)
+                    .offset(x:-100, y:-100)
                     .foregroundColor(.white)
                     .font(.system(size: 40, weight: .bold, design: .rounded))
                 
-                Image(systemName:"person.crop.circle.badge.questionmark")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 200, height: 120)
-                    .padding(.bottom, -300)
-                    .edgesIgnoringSafeArea(.all)
-                    .offset(y: -210)
-                
-                //form
+                //MARK: - FORM
                 VStack(spacing: 24){
-//                    PhotosPicker(selection: $viewModel.selectedItem){
-//                        if let profileImage = viewModel.profileImage{
-//                            profileImage
-//                                .resizable()
-//                                .scaledToFill()
-//                                .frame(width: 80, height: 80)
-//                                .clipShape(Circle())
-//                        } else {
-//                            Image(systemName: "person.circle.fill")
-//                                .resizable()
-//                                .frame(width: 80, height: 80)
-//                                .foregroundColor(Color(.gray))
-//                        }
-//                    }
+                    HStack{
+                        PhotosPicker(selection: $viewModel.selectedItem){
+                            if let profileImage = viewModel.profileImage{
+                                profileImage
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 100, height: 120)
+                                    .foregroundColor(Color(.black))
+                                    .padding()
+                                    .clipShape(Circle())
+                            } else {
+                                Image(systemName: "person.crop.rectangle.badge.plus")
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 100, height: 120)
+                                    .foregroundColor(Color(.black))
+                                    .padding()
+                                    .offset(y: -100)
+                                    .padding(.bottom, -80)
+                            }
+                        }
+//                        Image(systemName: "square.and.pencil")
+//                            .font(.system(size: 26))
+//                            .foregroundColor(.black)
+//                            .offset(x: -40, y: 50)
+//                            .fontWeight(.bold)
+                            
+                    }
                     
                     InputField(text: $email, title: "Email Address", placeholder: "email@example.com")
                         .autocapitalization(.none)
@@ -86,7 +93,7 @@ struct SignupView: View {
                 .padding(.horizontal)
                 .padding(.top, 12)
                 
-                //submit button
+                //MARK: - SIGNUO BUTTON
                 Button {
                     Task{
                         try await viewAuthModel.createUser(withEmail: email, password: password, fullname: fullname)
@@ -104,6 +111,7 @@ struct SignupView: View {
                 
                 Spacer()
                 
+                //MARK: - NAVIGATION LINK TO LOGIN PAGE
                 NavigationLink{
                     LoginView(recentSignIn: RecentSignIn())
                         .navigationBarBackButtonHidden(true)

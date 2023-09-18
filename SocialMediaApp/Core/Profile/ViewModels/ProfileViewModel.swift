@@ -18,10 +18,15 @@ class ProfileViewModel: ObservableObject{
     
     @Published var profileImage: Image?
     
+    @MainActor
     func loadImage() async throws {
         guard let item = selectedItem else {return}
         guard let imageData = try await item.loadTransferable(type: Data.self) else {return}
         guard let uiImage = UIImage(data: imageData) else {return}
         self.profileImage = Image(uiImage: uiImage)
     }
+//    func loadImage(){
+//        guard let selectedImage = selectedItem else {return}
+//        profileImage = Image(uiImage: selectedImage)
+//    }
 }

@@ -37,7 +37,7 @@ struct LoginView: View {
                     .edgesIgnoringSafeArea(.all)
                     .offset(y: -210)
                 
-                //form
+                //MARK: - FORM
                 VStack(spacing: 24){
                     InputField(text: $email, title: "Email Address", placeholder:"example@email.com")
                         .autocapitalization(.none)
@@ -48,7 +48,7 @@ struct LoginView: View {
                 .padding(.top, 12)
                 
                 
-                //sign in button
+                //MARK: - SIGNIN BUTTON
                 VStack(spacing: 30) {
                     Button {
                         Task{
@@ -68,7 +68,7 @@ struct LoginView: View {
                     }//label
                 .modifier(ButtonModifier())
                     
-                    
+                    //MARK: - FACE RECOGNITION BUTTON
                     Button {
                         Task.init {
                             await viewModel.authenticateWithBiometric()
@@ -82,7 +82,7 @@ struct LoginView: View {
                 
                 Spacer()
                 
-                //register button
+                //MARK: - NAVIGATION LINK TO LOGIN PAGE
                 
                 NavigationLink{
                     SignupView()

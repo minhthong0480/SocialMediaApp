@@ -38,7 +38,7 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    // MARK: Credential Authentication
+    // MARK: - SIGN IN FUNC
     @MainActor
     func signIn(withEmail email: String, password: String) async throws {
         do{
@@ -50,6 +50,7 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    // MARK: - SIGN UP FUNC
     @MainActor
     func createUser(withEmail email: String, password: String, fullname: String) async throws {
         do {
@@ -64,6 +65,7 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    // MARK: - SIGN OUT FUNC
     func signOut() {
         do {
             try Auth.auth().signOut()
@@ -75,6 +77,7 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    // MARK: - FECTH USER DATA
     @MainActor
     func fetchUser() async {
         guard let uid = Auth.auth().currentUser?.uid else {return}
