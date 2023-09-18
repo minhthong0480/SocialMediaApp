@@ -7,6 +7,7 @@
 
 import SwiftUI
 import PhotosUI
+import Kingfisher
 
 struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
@@ -58,17 +59,23 @@ struct ProfileView: View {
     var body: some View {
         NavigationStack {
             VStack{
-                if let user = viewAuthModel.currentUser{
-                    
-                        if let profileImage = viewModel.profileImage{
-                            profileImage
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 80, height: 80)
-                                .clipShape(Circle())
-                        } else {
-                            ProfilePictureView(user: user, size: .xLarge)
-                        }
+                if let user = viewAuthModel.currentUser {
+                    if let imageUrlString = user.profileImageUrl, let imageUrl = URL(string: imageUrlString) {
+                        KFImage(imageUrl)
+                            .resizable()
+                            .scaledToFill()
+                            .clipShape(Circle())
+                            .frame(width: 100, height: 120)
+                    } else {
+                        // Provide a default image or placeholder when profileImageUrl is nil
+                        Image("profileAvatar")
+                            .resizable()
+                            .scaledToFill()
+                            .clipShape(Circle())
+                            .frame(width: 100, height: 120)
+                    }
+
+                        
                     
                     Text(user.fullname)
                         .font(.title)

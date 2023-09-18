@@ -25,8 +25,4 @@ class ProfileViewModel: ObservableObject{
         guard let uiImage = UIImage(data: imageData) else {return}
         self.profileImage = Image(uiImage: uiImage)
     }
-//    func loadImage(){
-//        guard let selectedImage = selectedItem else {return}
-//        profileImage = Image(uiImage: selectedImage)
-//    }
 }

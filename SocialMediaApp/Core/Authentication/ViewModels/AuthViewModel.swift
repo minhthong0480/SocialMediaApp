@@ -22,6 +22,8 @@ class AuthViewModel: ObservableObject {
     
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
+    private var tempUser: FirebaseAuth.User?
+    @Published var didAuthenticateUser = false
     
     private(set) var context = LAContext()
     private(set) var canEvaluatePolicy = false
@@ -51,17 +53,40 @@ class AuthViewModel: ObservableObject {
     }
     
     // MARK: - SIGN UP FUNC
-    @MainActor
-    func createUser(withEmail email: String, password: String, fullname: String) async throws {
-        do {
-            let result = try await Auth.auth().createUser(withEmail: email, password: password)
-            self.userSession = result.user
-            let user = User(uid: result.user.uid, fullname: fullname, email: email)
-            let encodedUser = try Firestore.Encoder().encode(user)
-            try await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
-            await fetchUser()
-        } catch {
-            print("Error \(error.localizedDescription)")
+//    @MainActor
+//    func createUser(withEmail email: String, password: String, fullname: String) async throws {
+//        do {
+//            let result = try await Auth.auth().createUser(withEmail: email, password: password)
+////            self.userSession = result.user
+//            self.tempUser = result.user
+//            let data = User(uid: result.user.uid, fullname: fullname, email: email)
+//            let encodedUser = try Firestore.Encoder().encode(data)
+//            try await Firestore.firestore().collection("users").document(data.id).setData(encodedUser) { _ in
+//                self.didAuthenticateUser = true
+//            }
+//
+//            await fetchUser()
+//        } catch {
+//            print("Error \(error.localizedDescription)")
+//        }
+//    }
+    
+    func createUser(withEmail email: String, password: String, fullname: String) {
+        Auth.auth().createUser(withEmail: email, password: password) {result, error in
+            if let error = error {
+                print("Falied to register")
+                return
+            }
+            
+            guard let user = result?.user else {return}
+            self.userSession = user
+            
+            let data = ["email": email,
+                        "fullname": fullname,
+                        "uid": user.uid]
+            
+            Firestore.firestore().collection("users")
+                .document(user.uid)
         }
     }
     
@@ -85,6 +110,19 @@ class AuthViewModel: ObservableObject {
         self.currentUser = try?snapshot.data(as:User.self)
         
         print("DEBUG: Current user is: \(currentUser)")
+    }
+    
+    //MARK: - UPLOAD IMAGE
+    func uploadProfileImage(_ image: UIImage) {
+        guard let uid = tempUser?.uid else {return}
+        
+        ImageUploader.uploadImage(image: image) { profileImageUrl in
+            Firestore.firestore().collection("users")
+                .document(uid)
+                .updateData(["profileImageUrl": profileImageUrl]) { _ in
+                    self.userSession = self.tempUser
+                }
+        }
     }
     
     

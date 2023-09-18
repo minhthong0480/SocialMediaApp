@@ -11,6 +11,9 @@ import PhotosUI
 struct SignupView: View {
     @State private var email = ""
     @State private var fullname = ""
+    @State private var selectedImage: UIImage?
+    let defaultImage = UIImage(systemName: "person")!
+    @State private var profileImage: Image?
     @State private var password = ""
     @State private var confirmPassword = ""
     @EnvironmentObject var viewAuthModel: AuthViewModel
@@ -23,6 +26,8 @@ struct SignupView: View {
         //image
         NavigationStack {
             VStack {
+                NavigationLink(destination: ProfileSelectorView(),isActive:$viewAuthModel.didAuthenticateUser, label: {})
+                
                 RoundedRectangle(cornerRadius: 50)
                     .frame(width: 1000, height: 300)
                     .ignoresSafeArea()
@@ -36,34 +41,44 @@ struct SignupView: View {
                 
                 //MARK: - FORM
                 VStack(spacing: 24){
-                    HStack{
-                        PhotosPicker(selection: $viewModel.selectedItem){
-                            if let profileImage = viewModel.profileImage{
-                                profileImage
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 100, height: 120)
-                                    .foregroundColor(Color(.black))
-                                    .padding()
-                                    .clipShape(Circle())
-                            } else {
-                                Image(systemName: "person.crop.circle.badge.plus")
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 100, height: 120)
-                                    .foregroundColor(Color(.black))
-                                    .padding()
-                                    .offset(y: -100)
-                                    .padding(.bottom, -80)
-                            }
-                        }
-//                        Image(systemName: "square.and.pencil")
-//                            .font(.system(size: 26))
-//                            .foregroundColor(.black)
-//                            .offset(x: -40, y: 50)
-//                            .fontWeight(.bold)
-                            
-                    }
+                    //                    Image(systemName: "person.crop.circle.badge.plus")
+                    //                        .resizable()
+                    //                        .scaledToFill()
+                    //                        .frame(width: 100, height: 120)
+                    //                        .foregroundColor(Color(.black))
+                    //                        .padding()
+                    //                        .offset(y: -100)
+                    //                        .padding(.bottom, -80)
+                    
+                    //                    PhotosPicker(selection: $viewModel.selectedItem){
+                    //                        if let profileImage = viewModel.profileImage{
+                    //                            profileImage
+                    //                                .resizable()
+                    //                                .scaledToFill()
+                    //                                .frame(width: 100, height: 120)
+                    //                                .foregroundColor(Color(.black))
+                    //                                .padding()
+                    //                                .clipShape(Circle())
+                    //                        } else {
+                    //                            Image(systemName: "person.crop.circle.badge.plus")
+                    //                                .resizable()
+                    //                                .scaledToFill()
+                    //                                .frame(width: 100, height: 120)
+                    //                                .foregroundColor(Color(.black))
+                    //                                .padding()
+                    //                                .offset(y: -100)
+                    //                                .padding(.bottom, -80)
+                    //                        }
+                    //                    }
+                    
+                    Image(systemName: "person.crop.circle.badge.plus")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 100, height: 120)
+                        .foregroundColor(Color(.black))
+                        .padding()
+                        .offset(y: -100)
+                        .padding(.bottom, -80)
                     
                     InputField(text: $email, title: "Email Address", placeholder: "email@example.com")
                         .autocapitalization(.none)
@@ -93,7 +108,8 @@ struct SignupView: View {
                 .padding(.horizontal)
                 .padding(.top, 12)
                 
-                //MARK: - SIGNUO BUTTON
+                //MARK: - SIGNUP BUTTON
+                
                 Button {
                     Task{
                         try await viewAuthModel.createUser(withEmail: email, password: password, fullname: fullname)
@@ -108,6 +124,7 @@ struct SignupView: View {
                     .frame(width: UIScreen.main.bounds.width - 32, height: 40)
                 }//label
                 .modifier(ButtonModifier())
+                
                 
                 Spacer()
                 

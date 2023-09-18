@@ -7,31 +7,24 @@
 
 import Foundation
 import FirebaseFirestoreSwift
-import Firebase
+import FirebaseCore
 
-struct User: Identifiable, Codable{
+struct User: Identifiable, Decodable {
     @DocumentID var uid: String?
     let fullname: String
     let email: String
-    var profileImageUrl: String?
+    let profileImageUrl: String?
     
     //let birthdate: Date
     
     var id: String {
         return uid ?? NSUUID().uuidString
     }
-    
-    var initials: String {
-        let formatter = PersonNameComponentsFormatter()
-        if let components = formatter.personNameComponents(from: fullname){
-            formatter.style = .abbreviated
-            return formatter.string(from: components)
-        }
-        
-        return ""
-    }
-}
-
-extension User {
-    static var mockUser = User(fullname: "Thong Nguyen", email: "thongtest1@gmail.com", profileImageUrl: "batman")
+ 
+//    init(data: [String: Any]) {
+//            self.uid = data["id"] as? String ?? ""
+//            self.fullname = data["fullname"] as? String ?? ""
+//            self.email = data["email"] as? String ?? ""
+//            self.profileImageUrl = data["profileImageUrl"] as? String ?? ""
+//        }
 }
