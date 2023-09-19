@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		057E21962AB443250015AD2D /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057E21922AB4382E0015AD2D /* Dropdown.swift */; };
+		B6EC90DF2AB963F0009C41C5 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EC90DE2AB963F0009C41C5 /* Post.swift */; };
 		BA196F752AB461FA00FF1392 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = BA196F742AB461FA00FF1392 /* FirebaseFirestore */; };
 		BA196F772AB461FA00FF1392 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = BA196F762AB461FA00FF1392 /* FirebaseFirestoreCombine-Community */; };
 		BA196F792AB4621000FF1392 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BA196F782AB4621000FF1392 /* FirebaseFirestoreSwift */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		057E21922AB4382E0015AD2D /* Dropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dropdown.swift; sourceTree = "<group>"; };
+		B6EC90DE2AB963F0009C41C5 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		BA6B282E2AB58A0900DFF8A5 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		BA6B28312AB58A3200DFF8A5 /* ProfileRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRowViewModel.swift; sourceTree = "<group>"; };
 		BA6B28332AB58BE900DFF8A5 /* ProfilePictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureView.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				E8A22F032AB48B9100BA6E9B /* KeychainManager.swift */,
 				E89F796F2AB5852F00F2ECA5 /* RecentSignIn.swift */,
 				E8A22F052AB4A8C200BA6E9B /* BiometricAuthentication.swift */,
+				B6EC90DE2AB963F0009C41C5 /* Post.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -339,6 +342,7 @@
 				BA6B282F2AB58A0900DFF8A5 /* ProfileViewModel.swift in Sources */,
 				BA8F0F572AB1A37F0061A69A /* SignupView.swift in Sources */,
 				E8A22F062AB4A8C200BA6E9B /* BiometricAuthentication.swift in Sources */,
+				B6EC90DF2AB963F0009C41C5 /* Post.swift in Sources */,
 				BA8F0F672AB1C2A00061A69A /* ProfileView.swift in Sources */,
 				BAD6ADE72AB399D6008718D7 /* AuthViewModel.swift in Sources */,
 				BA6B28342AB58BE900DFF8A5 /* ProfilePictureView.swift in Sources */,
