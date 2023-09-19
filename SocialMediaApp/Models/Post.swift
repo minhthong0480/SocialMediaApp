@@ -7,8 +7,6 @@
 
 import Foundation
 import SwiftUI
-import FirebaseFirestore
-import FirebaseFirestoreSwift
 
 struct Post: Identifiable {
     var id: String = UUID().uuidString
@@ -17,5 +15,4 @@ struct Post: Identifiable {
     let userId: String
     let likes: Int
     var isLiked: Bool
-    
 }
