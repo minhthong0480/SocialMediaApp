@@ -53,49 +53,58 @@ class AuthViewModel: ObservableObject {
     }
     
     // MARK: - SIGN UP FUNC
+//    @MainActor
+//    func createUser(withEmail email: String, password: String, fullname: String) async throws {
+//        do {
+//            let result = try await Auth.auth().createUser(withEmail: email, password: password)
+//            self.tempUser = result.user
+////            let data = User(uid: result.user.uid, fullname: fullname, email: email)
+//                        let data = ["email": email,
+//                                    "fullname": fullname,
+//                                    "uid": result.user.uid]
+//            let encodedUser = try Firestore.Encoder().encode(data)
+//            try await Firestore.firestore().collection("users").document(result.user.uid).setData(encodedUser) { _ in
+//                self.didAuthenticateUser = true
+//            }
+//
+//            await fetchUser()
+//        } catch {
+//            print("Error \(error.localizedDescription)")
+//        }
+//    }
+    
     @MainActor
     func createUser(withEmail email: String, password: String, fullname: String) async throws {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
+            var user = User(uid: result.user.uid, fullname: fullname, email: email)
+            
+            // Set the profile image URL to nil when creating a new user
+            user.profileImageUrl = nil
+            
+            // Update currentUser property
+            self.currentUser = user
+            
+            // Update userSession and tempUser
 //            self.userSession = result.user
             self.tempUser = result.user
-//            let data = User(uid: result.user.uid, fullname: fullname, email: email)
-                        let data = ["email": email,
-                                    "fullname": fullname,
-                                    "uid": result.user.uid]
-            let encodedUser = try Firestore.Encoder().encode(data)
+            
+            // Encode user data
+            let encodedUser = try Firestore.Encoder().encode(user)
+            
+            // Save user data to Firestore
             try await Firestore.firestore().collection("users").document(result.user.uid).setData(encodedUser) { _ in
                 self.didAuthenticateUser = true
             }
 
+            // Fetch user data again to ensure it's up to date
             await fetchUser()
         } catch {
             print("Error \(error.localizedDescription)")
         }
     }
-    
-//    func createUser(withEmail email: String, password: String, fullname: String) {
-//        Auth.auth().createUser(withEmail: email, password: password) {result, error in
-//            if let error = error {
-//                print("Falied to register")
-//                return
-//            }
-//
-//            guard let user = result?.user else {return}
-////            self.userSession = user
-//            self.tempUser = user
-//
-//            let data = ["email": email,
-//                        "fullname": fullname,
-//                        "uid": user.uid]
-//
-//            Firestore.firestore().collection("users")
-//                .document(user.uid)
-//                .setData(data) { _ in
-//                    self.didAuthenticateUser = true
-//                }
-//        }
-//    }
+
+
     
     // MARK: - SIGN OUT FUNC
     func signOut() {
@@ -121,9 +130,13 @@ class AuthViewModel: ObservableObject {
     
     //MARK: - UPLOAD IMAGE
     func uploadProfileImage(_ image: UIImage) {
-        guard let uid = tempUser?.uid else {return}
+        guard let uid = tempUser?.uid else { return }
         
         ImageUploader.uploadImage(image: image) { profileImageUrl in
+            // Update the profile image URL in the user object
+            self.currentUser?.profileImageUrl = profileImageUrl
+            
+            // Update the user data in Firestore with the new profile image URL
             Firestore.firestore().collection("users")
                 .document(uid)
                 .updateData(["profileImageUrl": profileImageUrl]) { _ in
@@ -131,6 +144,7 @@ class AuthViewModel: ObservableObject {
                 }
         }
     }
+
     
     
     

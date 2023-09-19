@@ -9,11 +9,11 @@ import Foundation
 import FirebaseFirestoreSwift
 import FirebaseCore
 
-struct User: Identifiable, Decodable {
+struct User: Identifiable, Codable {
     @DocumentID var uid: String?
     let fullname: String
     let email: String
-    let profileImageUrl: String
+    var profileImageUrl: String?
     
     //let birthdate: Date
     
