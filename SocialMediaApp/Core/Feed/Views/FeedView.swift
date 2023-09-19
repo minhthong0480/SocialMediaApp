@@ -11,9 +11,30 @@ struct FeedView: View {
     @ObservedObject var viewModel = FeedViewModel()
     
     var body: some View {
-        ScrollView {
-            ForEach(viewModel.posts) { post in
-                PostView(post: post)
+        NavigationView {
+            ScrollView {
+                ForEach(viewModel.posts) { post in
+                    PostView(post: post)
+                }
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    
+                }
+                ToolbarItem(placement: .principal) {
+                    Text("Tweeter")
+                        .font(.largeTitle)
+                        .fontWeight(.heavy)
+                        .foregroundColor(.primary)
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "magnifyingglass")
+                    }
+                }
             }
         }
     }
