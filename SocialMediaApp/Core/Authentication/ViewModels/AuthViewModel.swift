@@ -53,42 +53,49 @@ class AuthViewModel: ObservableObject {
     }
     
     // MARK: - SIGN UP FUNC
-//    @MainActor
-//    func createUser(withEmail email: String, password: String, fullname: String) async throws {
-//        do {
-//            let result = try await Auth.auth().createUser(withEmail: email, password: password)
-////            self.userSession = result.user
-//            self.tempUser = result.user
+    @MainActor
+    func createUser(withEmail email: String, password: String, fullname: String) async throws {
+        do {
+            let result = try await Auth.auth().createUser(withEmail: email, password: password)
+//            self.userSession = result.user
+            self.tempUser = result.user
 //            let data = User(uid: result.user.uid, fullname: fullname, email: email)
-//            let encodedUser = try Firestore.Encoder().encode(data)
-//            try await Firestore.firestore().collection("users").document(data.id).setData(encodedUser) { _ in
-//                self.didAuthenticateUser = true
-//            }
-//
-//            await fetchUser()
-//        } catch {
-//            print("Error \(error.localizedDescription)")
-//        }
-//    }
-    
-    func createUser(withEmail email: String, password: String, fullname: String) {
-        Auth.auth().createUser(withEmail: email, password: password) {result, error in
-            if let error = error {
-                print("Falied to register")
-                return
+                        let data = ["email": email,
+                                    "fullname": fullname,
+                                    "uid": result.user.uid]
+            let encodedUser = try Firestore.Encoder().encode(data)
+            try await Firestore.firestore().collection("users").document(result.user.uid).setData(encodedUser) { _ in
+                self.didAuthenticateUser = true
             }
-            
-            guard let user = result?.user else {return}
-            self.userSession = user
-            
-            let data = ["email": email,
-                        "fullname": fullname,
-                        "uid": user.uid]
-            
-            Firestore.firestore().collection("users")
-                .document(user.uid)
+
+            await fetchUser()
+        } catch {
+            print("Error \(error.localizedDescription)")
         }
     }
+    
+//    func createUser(withEmail email: String, password: String, fullname: String) {
+//        Auth.auth().createUser(withEmail: email, password: password) {result, error in
+//            if let error = error {
+//                print("Falied to register")
+//                return
+//            }
+//
+//            guard let user = result?.user else {return}
+////            self.userSession = user
+//            self.tempUser = user
+//
+//            let data = ["email": email,
+//                        "fullname": fullname,
+//                        "uid": user.uid]
+//
+//            Firestore.firestore().collection("users")
+//                .document(user.uid)
+//                .setData(data) { _ in
+//                    self.didAuthenticateUser = true
+//                }
+//        }
+//    }
     
     // MARK: - SIGN OUT FUNC
     func signOut() {

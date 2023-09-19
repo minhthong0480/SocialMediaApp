@@ -40,37 +40,7 @@ struct SignupView: View {
                     .font(.system(size: 40, weight: .bold, design: .rounded))
                 
                 //MARK: - FORM
-                VStack(spacing: 24){
-                    //                    Image(systemName: "person.crop.circle.badge.plus")
-                    //                        .resizable()
-                    //                        .scaledToFill()
-                    //                        .frame(width: 100, height: 120)
-                    //                        .foregroundColor(Color(.black))
-                    //                        .padding()
-                    //                        .offset(y: -100)
-                    //                        .padding(.bottom, -80)
-                    
-                    //                    PhotosPicker(selection: $viewModel.selectedItem){
-                    //                        if let profileImage = viewModel.profileImage{
-                    //                            profileImage
-                    //                                .resizable()
-                    //                                .scaledToFill()
-                    //                                .frame(width: 100, height: 120)
-                    //                                .foregroundColor(Color(.black))
-                    //                                .padding()
-                    //                                .clipShape(Circle())
-                    //                        } else {
-                    //                            Image(systemName: "person.crop.circle.badge.plus")
-                    //                                .resizable()
-                    //                                .scaledToFill()
-                    //                                .frame(width: 100, height: 120)
-                    //                                .foregroundColor(Color(.black))
-                    //                                .padding()
-                    //                                .offset(y: -100)
-                    //                                .padding(.bottom, -80)
-                    //                        }
-                    //                    }
-                    
+                VStack(spacing: 24){          
                     Image(systemName: "person.crop.circle.badge.plus")
                         .resizable()
                         .scaledToFill()
@@ -112,7 +82,7 @@ struct SignupView: View {
                 
                 Button {
                     Task{
-                        try await viewAuthModel.createUser(withEmail: email, password: password, fullname: fullname)
+                       try await viewAuthModel.createUser(withEmail: email, password: password, fullname: fullname)
                     }
                 } label: {
                     HStack{
