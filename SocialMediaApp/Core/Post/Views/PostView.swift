@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 //import UIKit
 
 struct PostView: View {
@@ -25,19 +26,21 @@ struct PostView: View {
     
     var body: some View {
         VStack(alignment:.leading) {
-            HStack(alignment:.top, spacing: 10){
+            HStack(alignment:.top, spacing: 10) {
+                
                 Image(systemName: "person")
                     .resizable()
-                //.scaledToFill()
-                //.clipShape(Circle())
                     .frame(width:45, height:45)
-                //.border(.black)
+                
                 VStack(alignment:.leading, spacing: 5){
-                    Text("Kiet Duong")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                    Text("@duonganhkiet")
-                        .font(.caption)
+                    if let user = viewModel.user {
+                        Text(user.fullname)
+                            .font(.headline)
+                            .fontWeight(.bold)
+                        Text(user.email)
+                            .font(.caption)
+                    }
+                    
                 }
                 Spacer()
                 VStack(alignment:.trailing, spacing: 10) {
@@ -164,9 +167,12 @@ struct PostView: View {
                 self.edittingCaption = viewModel.post.caption
             }
         }// sheet
-        
     }
+    
 }
+
+
+
 
 //struct PostView_Previews: PreviewProvider {
 //    static var previews: some View {
