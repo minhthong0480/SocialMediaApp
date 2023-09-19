@@ -13,6 +13,7 @@ struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
     @EnvironmentObject var viewAuthModel: AuthViewModel
     
+    @State private var showEditProfile = false
     @State private var shouldNavigateToLogin = false
     
     
@@ -21,16 +22,13 @@ struct ProfileView: View {
         
         case email
         case fullname
-        case phonenumber
-        case gender
+        
         
         
         func userData(viewAuthModel: AuthViewModel) -> String {
             switch self {
             case .email: return viewAuthModel.currentUser?.email ?? ""
             case .fullname: return viewAuthModel.currentUser?.fullname ?? ""
-            case .phonenumber: return "phone"
-            case .gender: return "person.2"
             }
         }
         
@@ -38,8 +36,6 @@ struct ProfileView: View {
             switch self {
             case .email: return "Email"
             case .fullname: return "FullName"
-            case .phonenumber: return "Phone Number"
-            case .gender: return "Gender"
             }
         }
         
@@ -47,8 +43,7 @@ struct ProfileView: View {
             switch self {
             case .email: return "envelope"
             case .fullname: return "person"
-            case .phonenumber: return "phone"
-            case .gender: return "person.2"
+            
             }
         }
         
@@ -96,21 +91,29 @@ struct ProfileView: View {
                                         .frame(width: 24, height: 24)
                                         .foregroundColor(Color(.systemPurple))
                                     
-                                    Text(option.title)
-                                    Text(option.userData(viewAuthModel: viewAuthModel))
+                                    Text("\(option.title): \(option.userData(viewAuthModel: viewAuthModel))")
+                                    
                                 }
                             }
                         }
                         Section {
+                            Button("Edit Profile"){
+                                print("Edit profile button clicked")
+                                showEditProfile.toggle()
+                            }
                             
                             Button("Sign Out") {
                                 viewAuthModel.signOut()
                             }
                         }
+                        .foregroundColor(.red)
                     }
                 }//if statement
                 
             }//Vstack
+            .fullScreenCover(isPresented: $showEditProfile) {
+                EditProfileView()
+            }
             
         }//Navigationstack
         

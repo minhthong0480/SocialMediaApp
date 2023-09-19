@@ -11,7 +11,7 @@ import FirebaseCore
 
 struct User: Identifiable, Codable {
     @DocumentID var uid: String?
-    let fullname: String
+    var fullname: String
     let email: String
     var profileImageUrl: String?
     
