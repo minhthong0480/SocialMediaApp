@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import PhotosUI
+import Kingfisher
 
 struct NewPostView: View {
     @ObservedObject var viewModel = NewPostViewModel()
@@ -17,12 +19,15 @@ struct NewPostView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(spacing: 20) {
-                Image(systemName: "person")
-                    .resizable()
-                    .clipShape(Circle())
-                    .frame(width:100, height:100)
+                
                 
                 if let user = authViewModel.currentUser {
+                    if let imageUrlString = user.profileImageUrl, let imageUrl = URL(string: imageUrlString) {
+                        KFImage(imageUrl)
+                        .resizable()
+                        .clipShape(Circle())
+                        .frame(width:100, height:100)
+                               }
                     VStack(alignment: .leading){
                         Text(user.fullname)
                             .font(.title)
