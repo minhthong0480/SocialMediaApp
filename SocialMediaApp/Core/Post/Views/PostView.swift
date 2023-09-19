@@ -27,10 +27,15 @@ struct PostView: View {
     var body: some View {
         VStack(alignment:.leading) {
             HStack(alignment:.top, spacing: 10) {
-                
-                Image(systemName: "person")
-                    .resizable()
-                    .frame(width:45, height:45)
+                if let user = viewModel.user {
+                    Image(systemName: "person")
+                        .resizable()
+                        .frame(width:45, height:45)
+                } else {
+                    Image(systemName: "person")
+                        .resizable()
+                        .frame(width:45, height:45)
+                }
                 
                 VStack(alignment:.leading, spacing: 5){
                     if let user = viewModel.user {
