@@ -14,6 +14,7 @@ struct ProfileSelectorView: View {
     @State private var profileImage: Image?
     @StateObject var viewModel = ProfileViewModel()
     @State private var showImagePicker = false
+    @State private var isUploading = false
     
     func loadImage() {
         guard let selectedImage = selectedImage else {return}
@@ -64,8 +65,23 @@ struct ProfileSelectorView: View {
                     
                     if let selectedImage = selectedImage {
                         Button {
-                            viewAuthModel.uploadProfileImage(selectedImage)
-                        } label: {
+                            // Start uploading image
+                            isUploading = true
+                            
+                            viewAuthModel.uploadProfileImage(selectedImage) { success in
+                                // Handle upload completion
+                                isUploading = false
+                                
+                                if success != nil {
+                                    // Successfully uploaded image
+                                    // You can add any further actions here
+                                    print("Image upload successful!")
+                                } else {
+                                    // Handle upload failure
+                                    print("Image upload failed.")
+                                }
+                            }
+                        }label: {
                             HStack{
                                 Text("Finish")
                                     .fontWeight(.bold)

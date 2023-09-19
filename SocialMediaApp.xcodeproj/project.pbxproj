@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		057E21962AB443250015AD2D /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057E21922AB4382E0015AD2D /* Dropdown.swift */; };
 		B6EC90DF2AB963F0009C41C5 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EC90DE2AB963F0009C41C5 /* Post.swift */; };
 		B6EC90E22AB965D8009C41C5 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EC90E12AB965D8009C41C5 /* PostService.swift */; };
 		B6EC90ED2AB9677A009C41C5 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EC90EC2AB9677A009C41C5 /* FeedViewModel.swift */; };
@@ -30,6 +29,7 @@
 		BA6B28462AB8101E00DFF8A5 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B28452AB8101E00DFF8A5 /* ImagePicker.swift */; };
 		BA6B28492AB81BBA00DFF8A5 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BA6B28482AB81BBA00DFF8A5 /* Kingfisher */; };
 		BA6B284B2AB81E5C00DFF8A5 /* ProfileSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6B284A2AB81E5C00DFF8A5 /* ProfileSelectorView.swift */; };
+		BA80B6A92AB98E2C0085C2E1 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA80B6A82AB98E2C0085C2E1 /* EditProfileView.swift */; };
 		BA8F0F2C2AB04A5F0061A69A /* SocialMediaAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F0F2B2AB04A5F0061A69A /* SocialMediaAppApp.swift */; };
 		BA8F0F2E2AB04A5F0061A69A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8F0F2D2AB04A5F0061A69A /* ContentView.swift */; };
 		BA8F0F302AB04A600061A69A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA8F0F2F2AB04A600061A69A /* Assets.xcassets */; };
@@ -50,7 +50,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		057E21922AB4382E0015AD2D /* Dropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dropdown.swift; sourceTree = "<group>"; };
 		B6EC90DE2AB963F0009C41C5 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		B6EC90E12AB965D8009C41C5 /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
 		B6EC90EC2AB9677A009C41C5 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
@@ -65,6 +64,7 @@
 		BA6B283F2AB7FE2300DFF8A5 /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 		BA6B28452AB8101E00DFF8A5 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		BA6B284A2AB81E5C00DFF8A5 /* ProfileSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectorView.swift; sourceTree = "<group>"; };
+		BA80B6A82AB98E2C0085C2E1 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		BA8F0F282AB04A5F0061A69A /* SocialMediaApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialMediaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA8F0F2B2AB04A5F0061A69A /* SocialMediaAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaAppApp.swift; sourceTree = "<group>"; };
 		BA8F0F2D2AB04A5F0061A69A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -299,7 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				BA8F0F662AB1C2A00061A69A /* ProfileView.swift */,
-				057E21922AB4382E0015AD2D /* Dropdown.swift */,
+				BA80B6A82AB98E2C0085C2E1 /* EditProfileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -436,7 +436,6 @@
 				BA8F0F2C2AB04A5F0061A69A /* SocialMediaAppApp.swift in Sources */,
 				B6EC90F72AB96828009C41C5 /* NewPostView.swift in Sources */,
 				E89F79702AB5852F00F2ECA5 /* RecentSignIn.swift in Sources */,
-				057E21962AB443250015AD2D /* Dropdown.swift in Sources */,
 				BA6B28322AB58A3200DFF8A5 /* ProfileRowViewModel.swift in Sources */,
 				B6EC90E22AB965D8009C41C5 /* PostService.swift in Sources */,
 				B6EC90ED2AB9677A009C41C5 /* FeedViewModel.swift in Sources */,
@@ -446,6 +445,7 @@
 				BA8F0F5A2AB1A9970061A69A /* LoginView.swift in Sources */,
 				BA6B282F2AB58A0900DFF8A5 /* ProfileViewModel.swift in Sources */,
 				BA8F0F572AB1A37F0061A69A /* SignupView.swift in Sources */,
+				BA80B6A92AB98E2C0085C2E1 /* EditProfileView.swift in Sources */,
 				E8A22F062AB4A8C200BA6E9B /* BiometricAuthentication.swift in Sources */,
 				B6EC90DF2AB963F0009C41C5 /* Post.swift in Sources */,
 				BA8F0F672AB1C2A00061A69A /* ProfileView.swift in Sources */,
