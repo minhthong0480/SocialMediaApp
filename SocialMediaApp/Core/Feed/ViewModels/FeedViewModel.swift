@@ -27,4 +27,16 @@ class FeedViewModel: ObservableObject {
 
         }
     }
+    
+    func searchPosts(searchText: String){
+        postService.getAllPosts(){ posts in
+            var searchedPosts = [Post]()
+            if searchText.isEmpty{
+                searchedPosts = posts.sorted(by: { $0.timestamp.compare($1.timestamp) == .orderedDescending })
+            }else{
+                searchedPosts = posts.filter({$0.caption.localizedCaseInsensitiveContains(searchText)})
+            }
+            self.posts = searchedPosts
+        }
+    }
 }

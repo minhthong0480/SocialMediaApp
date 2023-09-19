@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FeedView: View {
     @ObservedObject var viewModel = FeedViewModel()
-    
+    @State private var searchText = ""
     var body: some View {
         NavigationView {
             ScrollView {
@@ -37,6 +37,14 @@ struct FeedView: View {
                 }
             }
         }
+        .searchable(text: $searchText)
+            .onChange(of: searchText){_ in
+                viewModel.searchPosts(searchText: searchText)
+            }
+            .onSubmit(of: .search){
+                viewModel.searchPosts(searchText: searchText)
+            }
+        
     }
 }
 
