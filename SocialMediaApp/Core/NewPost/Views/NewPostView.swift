@@ -22,11 +22,13 @@ struct NewPostView: View {
                     .clipShape(Circle())
                     .frame(width:100, height:100)
                 
-                VStack(alignment: .leading){
-                    Text("Kiet Duong")
-                        .font(.title)
-                        .fontWeight(.bold)
-                    Text("@duonganhkiet")
+                if let user = authViewModel.currentUser {
+                    VStack(alignment: .leading){
+                        Text(user.fullname)
+                            .font(.title)
+                            .fontWeight(.bold)
+                        Text(user.email)
+                    }
                 }
             }
             
@@ -95,5 +97,6 @@ struct NewPostView: View {
 struct NewPostView_Previews: PreviewProvider {
     static var previews: some View {
         NewPostView()
+            .environmentObject(AuthViewModel())
     }
 }
