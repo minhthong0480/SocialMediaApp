@@ -27,10 +27,15 @@ struct PostView: View {
     var body: some View {
         VStack(alignment:.leading) {
             HStack(alignment:.top, spacing: 10) {
+                
                 if let user = viewModel.user {
-                    Image(systemName: "person")
-                        .resizable()
-                        .frame(width:45, height:45)
+                    if let imageUrlString = user.profileImageUrl, let imageUrl = URL(string: imageUrlString) {
+                        KFImage(imageUrl)
+                            .resizable()
+                            .scaledToFill()
+                            .clipShape(Circle())
+                            .frame(width: 45, height: 45)
+                    }
                 } else {
                     Image(systemName: "person")
                         .resizable()

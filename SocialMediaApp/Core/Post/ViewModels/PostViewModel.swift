@@ -45,7 +45,7 @@ class PostViewModel: ObservableObject {
                 let fullname = data?["fullname"] as? String ?? ""
                 let email = data?["email"] as? String ?? ""
                 let profileImageUrl = data?["profileImageUrl"] as? String ?? ""
-                self.user = User(uid: document.documentID, fullname: fullname, email: email)
+                self.user = User(uid: document.documentID, fullname: fullname, email: email, profileImageUrl: profileImageUrl)
             } else {
                 print("Document does not exist")
             }
