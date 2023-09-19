@@ -19,7 +19,12 @@ class FeedViewModel: ObservableObject {
     func getAllPosts() {
 //        let userId = "2fmKZzUCfEeg2tKbU620LsE00H33"
         postService.getAllPosts(){ posts in
-            self.posts = posts
+//            self.posts = posts
+            
+            // Sort post array by date in descending order
+            var sortedPosts = posts.sorted(by: { $0.timestamp.compare($1.timestamp) == .orderedDescending })
+            self.posts = sortedPosts
+
         }
     }
 }

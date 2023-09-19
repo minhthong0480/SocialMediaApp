@@ -24,26 +24,35 @@ struct PostService {
         return formatter.date(from: string) ?? Date()
     }
     
-    func addNewPost (caption: String) {
+    func addNewPost(caption: String) {
         let db = Firestore.firestore()
+        
+        // Generate data for new post
         let userId = "gfa0WDjE6uSKvo8J9sIbQxr41v73"
+        
         let timestamp = dateToString(date: Date())
         let data = [
             "caption": caption,
             "timestamp": timestamp,
-            "userId": userId
+            "userId": userId,
+            "likes": 0,
+            "isLiked": false
         ] as [String : Any]
+        
+        // Save new post to database
         db.collection("posts").addDocument(data: data)
     }
     
     func getAllPosts(completion: @escaping([Post]) -> Void){
         let db = Firestore.firestore()
+        
         db.collection("posts").addSnapshotListener { querySnapshot, error in
-            //            guard let documents = snapshot?.documents else { return }
+            
             guard let documents = querySnapshot?.documents else {
                 print("Error fetching documents: \(error!)")
                 return
             }
+            
             let posts = documents.map { (queryDocumentSnapshot) -> Post in
                 let data = queryDocumentSnapshot.data()
                 let id = queryDocumentSnapshot.documentID
@@ -51,21 +60,26 @@ struct PostService {
                 let timestamp = data["timestamp"] as? String ?? ""
                 let date = self.stringToDate(string: timestamp)
                 let userId = data["userId"] as? String ?? ""
-                return Post(id: id, caption: caption, timestamp: date, userId: userId)
+                let likes = data["likes"] as? Int ?? 0
+                let isLiked = data["isLiked"] as? Bool ?? false
+                return Post(id: id, caption: caption, timestamp: date, userId: userId, likes: likes, isLiked: isLiked)
             }
+            
             completion(posts)
         }
     }
     
     func getAllPosts(userId: String, completion: @escaping([Post]) -> Void) {
         let db = Firestore.firestore()
+        
         db.collection("posts").whereField("userId", isEqualTo: userId)
-            .getDocuments { querySnapshot, error in
-//                guard let documents = snapshot?.documents else { return }
+            .addSnapshotListener { querySnapshot, error in
+                
                 guard let documents = querySnapshot?.documents else {
                     print("Error fetching documents: \(error!)")
                     return
                 }
+                
                 let posts = documents.map { (queryDocumentSnapshot) -> Post in
                     let data = queryDocumentSnapshot.data()
                     let id = queryDocumentSnapshot.documentID
@@ -73,8 +87,11 @@ struct PostService {
                     let timestamp = data["timestamp"] as? String ?? ""
                     let date = self.stringToDate(string: timestamp)
                     let userId = data["userId"] as? String ?? ""
-                    return Post(id: id, caption: caption, timestamp: date, userId: userId)
+                    let likes = data["likes"] as? Int ?? 0
+                    let isLiked = data["isLiked"] as? Bool ?? false
+                    return Post(id: id, caption: caption, timestamp: date, userId: userId, likes: likes, isLiked: isLiked)
                 }
+                
                 completion(posts)
             }
     }
@@ -87,5 +104,15 @@ struct PostService {
     func updatePost(postId: String, caption: String) {
         let db = Firestore.firestore()
         db.collection("posts").document(postId).updateData(["caption": caption])
+    }
+    
+    func likePost(post: Post) {
+        let db = Firestore.firestore()
+        db.collection("posts").document(post.id).updateData(["likes": post.likes + 1, "isLiked": true])
+    }
+    
+    func unlikePost(post: Post) {
+        let db = Firestore.firestore()
+        db.collection("posts").document(post.id).updateData(["likes": post.likes - 1, "isLiked": false])
     }
 }

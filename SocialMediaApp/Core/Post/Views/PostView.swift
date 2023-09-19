@@ -17,6 +17,7 @@ struct PostView: View {
     @Environment(\.dismiss) var dismiss
     @State private var edittingCaption = ""
     @State private var placeholder = "What's on your mind?"
+    @State private var isLiked = false
     
     init (post: Post) {
         self.viewModel = PostViewModel(post: post)
@@ -57,22 +58,26 @@ struct PostView: View {
             }
             Text(viewModel.post.caption)
             
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(.black, lineWidth: 1)
-                .frame(height:400)
+            //            RoundedRectangle(cornerRadius: 20)
+            //                .stroke(.black, lineWidth: 1)
+            //                .frame(height:400)
             
             Divider()
             
-            HStack(spacing:15){
-                Image(systemName: "heart")
-                    .resizable()
-                    .scaledToFit()
-                Image(systemName: "message")
-                    .resizable()
-                    .scaledToFit()
-                Image(systemName: "arrowshape.turn.up.forward")
-                    .resizable()
-                    .scaledToFit()
+            HStack(spacing:20){
+                Button(action: {
+                    if self.viewModel.post.isLiked == true {
+                        self.viewModel.unlikePost()
+                    } else {
+                        self.viewModel.likePost()
+                    }
+                }) {
+                    Image(systemName: self.viewModel.post.isLiked ? "hand.thumbsup.fill" : "hand.thumbsup")
+                        .resizable()
+                        .scaledToFit()
+                }
+                Text("\(self.viewModel.post.likes)")
+                
                 Spacer()
                 Image(systemName: "bookmark")
                     .resizable()
@@ -159,7 +164,7 @@ struct PostView: View {
                 self.edittingCaption = viewModel.post.caption
             }
         }// sheet
-            
+        
     }
 }
 

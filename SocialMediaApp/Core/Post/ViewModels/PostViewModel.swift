@@ -21,4 +21,14 @@ class PostViewModel: ObservableObject {
     func updatePost(caption: String) {
         postService.updatePost(postId: post.id, caption: caption)
     }
+    
+    func likePost() {
+        postService.likePost(post: self.post)
+//        self.post.isLiked = true
+    }
+    
+    func unlikePost() {
+        postService.unlikePost(post: self.post)
+//        self.post.isLiked = false
+    }
 }

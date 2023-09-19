@@ -56,7 +56,7 @@ struct NewPostView: View {
                     if (self.caption != "") {
                         viewModel.addNewPost(caption: caption)
                         self.caption = ""
-                        self.message = "New post created"
+                        self.message = "New post uploaded"
                         self.showingAlert.toggle()
                     } else {
                         self.message = "Caption cannot be empty"
