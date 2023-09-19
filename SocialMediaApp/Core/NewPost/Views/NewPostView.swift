@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NewPostView: View {
     @ObservedObject var viewModel = NewPostViewModel()
+    @EnvironmentObject var authViewModel: AuthViewModel
     @State private var caption = ""
     @State private var placeholder = "What's on your mind?"
     @State private var showingAlert = false
@@ -54,10 +55,15 @@ struct NewPostView: View {
                 Spacer()
                 Button {
                     if (self.caption != "") {
-                        viewModel.addNewPost(caption: caption)
-                        self.caption = ""
-                        self.message = "New post uploaded"
-                        self.showingAlert.toggle()
+                        if let user = authViewModel.currentUser {
+                            viewModel.addNewPost(caption: caption, currentUserId: user.uid ?? "Unknown" )
+                            self.caption = ""
+                            self.message = "New post uploaded"
+                            self.showingAlert.toggle()
+                        } else {
+                            self.message = "Invalid user!"
+                        }
+                        
                     } else {
                         self.message = "Caption cannot be empty"
                         self.showingAlert.toggle()

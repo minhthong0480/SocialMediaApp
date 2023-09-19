@@ -12,8 +12,8 @@ import Firebase
 class NewPostViewModel: ObservableObject {
     private let postService = PostService()
     
-    func addNewPost (caption: String) {
-        postService.addNewPost(caption: caption)
+    func addNewPost (caption: String, currentUserId: String) {
+        postService.addNewPost(caption: caption, userId: currentUserId)
     }
 }
 

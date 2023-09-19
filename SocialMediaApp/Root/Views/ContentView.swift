@@ -10,12 +10,23 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     
-    
     var body: some View {
         Group {
             if viewModel.userSession != nil {
-                ProfileView()
-                    
+                TabView {
+                    FeedView()
+                        .tabItem {
+                            Label("Feed", systemImage: "house.fill")
+                        }
+                    ProfileView()
+                        .tabItem {
+                            Label("Profile", systemImage: "person.fill")
+                        }
+                    NewPostView()
+                        .tabItem {
+                            Label("New Post", systemImage: "plus.app.fill")
+                        }
+                }
             } else {
                 LoginView(recentSignIn: RecentSignIn())
             }
@@ -26,6 +37,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            
+        
     }
 }

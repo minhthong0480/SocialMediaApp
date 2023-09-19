@@ -25,11 +25,11 @@ struct PostService {
         return formatter.date(from: string) ?? Date()
     }
     
-    func addNewPost(caption: String) {
+    func addNewPost(caption: String, userId: String) {
         let db = Firestore.firestore()
         
         // Generate data for new post
-        let userId = "gfa0WDjE6uSKvo8J9sIbQxr41v73"
+//        let userId = "gfa0WDjE6uSKvo8J9sIbQxr41v73"
         
         let timestamp = dateToString(date: Date())
         let data = [
