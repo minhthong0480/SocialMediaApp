@@ -24,6 +24,7 @@ class AuthViewModel: ObservableObject {
     @Published var currentUser: User?
     private var tempUser: FirebaseAuth.User?
     @Published var didAuthenticateUser = false
+    @Published var user: User
     
     private(set) var context = LAContext()
     private(set) var canEvaluatePolicy = false
@@ -31,14 +32,19 @@ class AuthViewModel: ObservableObject {
     @Published private(set) var errorDescription: String?
     @Published var showAlert = false
     
-    init(){
+    init() {
+        self.recentSignIn = RecentSignIn() // Initialize recentSignIn
         self.userSession = Auth.auth().currentUser
-        self.recentSignIn = RecentSignIn()
+        self.didAuthenticateUser = false
+        self.user = User(uid: "", fullname: "", email: "") // Replace "" with default values
+        
         self.getBiometryType()
-        Task{
+        
+        Task {
             await fetchUser()
         }
     }
+
     
     // MARK: - SIGN IN FUNC
     @MainActor
@@ -103,6 +109,29 @@ class AuthViewModel: ObservableObject {
             print("Error \(error.localizedDescription)")
         }
     }
+    
+    
+    // MARK: - UPDATE USER DATA
+    func updateUser(fullname: String, profileImageUrl: String?) async throws {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        var data: [String: Any] = ["fullname": fullname]
+        
+        if let profileImageUrl = profileImageUrl {
+            data["profileImageUrl"] = profileImageUrl
+        }
+        
+        try await Firestore.firestore().collection("users")
+            .document(uid)
+            .setData(data, merge: true)
+        
+        // Update the currentUser object if needed
+        currentUser?.fullname = fullname
+        currentUser?.profileImageUrl = profileImageUrl
+        
+        // You can also update the userSession here if needed
+    }
+
 
 
     
@@ -129,21 +158,46 @@ class AuthViewModel: ObservableObject {
     }
     
     //MARK: - UPLOAD IMAGE
-    func uploadProfileImage(_ image: UIImage) {
-        guard let uid = tempUser?.uid else { return }
-        
+//    func uploadProfileImage(_ image: UIImage) {
+//        guard let uid = tempUser?.uid else { return }
+//
+//        ImageUploader.uploadImage(image: image) { profileImageUrl in
+//            // Update the profile image URL in the user object
+//            self.currentUser?.profileImageUrl = profileImageUrl
+//
+//            // Update the user data in Firestore with the new profile image URL
+//            Firestore.firestore().collection("users")
+//                .document(uid)
+//                .updateData(["profileImageUrl": profileImageUrl]) { _ in
+//                    self.userSession = self.tempUser
+//                }
+//        }
+//    }
+    func uploadProfileImage(_ image: UIImage, completion: @escaping (String?) -> Void) {
+        guard let uid = tempUser?.uid else {
+            completion(nil)
+            return
+        }
+
         ImageUploader.uploadImage(image: image) { profileImageUrl in
             // Update the profile image URL in the user object
             self.currentUser?.profileImageUrl = profileImageUrl
-            
+
             // Update the user data in Firestore with the new profile image URL
             Firestore.firestore().collection("users")
                 .document(uid)
-                .updateData(["profileImageUrl": profileImageUrl]) { _ in
-                    self.userSession = self.tempUser
+                .updateData(["profileImageUrl": profileImageUrl]) { error in
+                    if let error = error {
+                        print("Error updating profile image URL: \(error.localizedDescription)")
+                        completion(nil)
+                    } else {
+                        self.userSession = self.tempUser
+                        completion(profileImageUrl)
+                    }
                 }
         }
     }
+
 
     
     
