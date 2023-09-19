@@ -19,22 +19,17 @@ struct FeedView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    
-                }
+//                ToolbarItem(placement: .navigationBarLeading) {
+//
+//                }
                 ToolbarItem(placement: .principal) {
                     Text("Tweeter")
                         .font(.largeTitle)
                         .fontWeight(.heavy)
                         .foregroundColor(.primary)
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "magnifyingglass")
-                    }
-                }
+//                ToolbarItem(placement: .navigationBarTrailing) {                
+//                }
             }
         }
         .searchable(text: $searchText)
