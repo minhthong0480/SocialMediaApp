@@ -29,8 +29,6 @@ struct PostService {
         let db = Firestore.firestore()
         
         // Generate data for new post
-//        let userId = "gfa0WDjE6uSKvo8J9sIbQxr41v73"
-        
         let timestamp = dateToString(date: Date())
         let data = [
             "caption": caption,
