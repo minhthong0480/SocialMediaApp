@@ -16,7 +16,7 @@ struct ProfileView: View {
     @State private var showEditProfile = false
     @State private var shouldNavigateToLogin = false
     
-    
+    @Binding var darkModeEnabled: Bool
     
     enum ProfileRowViewModel: Int, CaseIterable, Identifiable{
         
@@ -97,6 +97,17 @@ struct ProfileView: View {
                             }
                         }
                         Section {
+                            Toggle(isOn: $darkModeEnabled
+                                   , label: {
+                                Text("Dark mode")
+                            })
+                            .onChange(of: darkModeEnabled
+                                      , perform: {_ in
+                                            ThemeManager
+                                                .shared
+                                                .handleTheme(darkMode: darkModeEnabled)
+                            })
+                            
                             Button("Edit Profile"){
                                 print("Edit profile button clicked")
                                 showEditProfile.toggle()
@@ -124,7 +135,7 @@ struct ProfileView: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView()
+        ProfileView(darkModeEnabled: .constant(false))
             .environmentObject(AuthViewModel())
     }
 }

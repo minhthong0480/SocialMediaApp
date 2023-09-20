@@ -44,6 +44,7 @@
 		BAD6ADE42AB3950D008718D7 /* SettingRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD6ADE32AB3950D008718D7 /* SettingRowView.swift */; };
 		BAD6ADE72AB399D6008718D7 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD6ADE62AB399D6008718D7 /* AuthViewModel.swift */; };
 		E89F79702AB5852F00F2ECA5 /* RecentSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89F796F2AB5852F00F2ECA5 /* RecentSignIn.swift */; };
+		E8A06A152ABB1FF3004737BB /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A06A142ABB1FF3004737BB /* ThemeManager.swift */; };
 		E8A07B4A2AB08C83004B7409 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = E8A07B492AB08C83004B7409 /* .gitignore */; };
 		E8A22F042AB48B9100BA6E9B /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A22F032AB48B9100BA6E9B /* KeychainManager.swift */; };
 		E8A22F062AB4A8C200BA6E9B /* BiometricAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A22F052AB4A8C200BA6E9B /* BiometricAuthentication.swift */; };
@@ -81,6 +82,7 @@
 		BAD6ADE32AB3950D008718D7 /* SettingRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRowView.swift; sourceTree = "<group>"; };
 		BAD6ADE62AB399D6008718D7 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		E89F796F2AB5852F00F2ECA5 /* RecentSignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSignIn.swift; sourceTree = "<group>"; };
+		E8A06A142ABB1FF3004737BB /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		E8A07B492AB08C83004B7409 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		E8A22F032AB48B9100BA6E9B /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		E8A22F052AB4A8C200BA6E9B /* BiometricAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuthentication.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 		BA8F0F2A2AB04A5F0061A69A /* SocialMediaApp */ = {
 			isa = PBXGroup;
 			children = (
+				E8A06A132ABB1FD5004737BB /* Theme */,
 				B6EC90E02AB965BD009C41C5 /* Service */,
 				BA6B28382AB6D35700DFF8A5 /* Root */,
 				BA8F0F652AB1C2010061A69A /* Models */,
@@ -343,6 +346,14 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E8A06A132ABB1FD5004737BB /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				E8A06A142ABB1FF3004737BB /* ThemeManager.swift */,
+			);
+			path = Theme;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -459,6 +470,7 @@
 				BA8F0F692AB1C3550061A69A /* Modifier.swift in Sources */,
 				B6EC90F32AB967E7009C41C5 /* PostView.swift in Sources */,
 				BAD6ADE42AB3950D008718D7 /* SettingRowView.swift in Sources */,
+				E8A06A152ABB1FF3004737BB /* ThemeManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
