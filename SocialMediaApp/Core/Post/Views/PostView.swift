@@ -78,13 +78,17 @@ struct PostView: View {
             
             HStack(spacing:20){
                 Button(action: {
-                    if self.viewModel.post.isLiked == true {
-                        self.viewModel.unlikePost()
-                    } else {
-                        self.viewModel.likePost()
+                    if let currentUser = authViewModel.currentUser {
+                        if self.isLiked == true {
+                            self.viewModel.unlikePost(userId: currentUser.uid ?? "Unknown")
+                            self.isLiked.toggle()
+                        } else {
+                            self.viewModel.likePost(userId: currentUser.uid ?? "Unknown")
+                            self.isLiked.toggle()
+                        }
                     }
                 }) {
-                    Image(systemName: self.viewModel.post.isLiked ? "hand.thumbsup.fill" : "hand.thumbsup")
+                    Image(systemName: self.isLiked ? "hand.thumbsup.fill" : "hand.thumbsup")
                         .resizable()
                         .scaledToFit()
                 }
@@ -99,6 +103,9 @@ struct PostView: View {
             .frame(height:25)
         } //VStack
         .padding()
+        .onAppear {
+            self.isLiked = viewModel.post.isLiked
+        }
         .sheet(isPresented: $showEditPost) {
             VStack(alignment: .leading) {
                 HStack(spacing: 20) {

@@ -8,10 +8,17 @@
 import SwiftUI
 
 struct FeedView: View {
-    @ObservedObject var viewModel = FeedViewModel()
+    @ObservedObject var viewModel: FeedViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
     @State private var searchText = ""
+    
+    init (user: User) {
+        self.viewModel = FeedViewModel(user: user)
+    }
+    
     var body: some View {
         NavigationView {
+            
             ScrollView {
                 ForEach(viewModel.posts) { post in
                     PostView(post: post)
@@ -39,7 +46,12 @@ struct FeedView: View {
             .onSubmit(of: .search){
                 viewModel.searchPosts(searchText: searchText)
             }
-        
+//            .onAppear {
+//                if let currentUser = authViewModel.currentUser {
+//                    viewModel.getCurrentUser(user: currentUser)
+//                    viewModel.getAllPosts()
+//                }
+//            }
     }
 }
 

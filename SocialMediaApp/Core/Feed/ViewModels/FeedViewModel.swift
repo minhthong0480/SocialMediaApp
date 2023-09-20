@@ -10,21 +10,33 @@ import FirebaseFirestore
 
 class FeedViewModel: ObservableObject {
     @Published var posts = [Post]()
+    @Published var currentUser = User(uid: "", fullname: "", email: "", likedPosts: [String]())
     private let postService = PostService()
     
-    init() {
+    init(user: User) {
+        self.currentUser = user
         getAllPosts()
     }
     
+    func isLikedPost(postId: String) -> Bool {
+        return self.currentUser.likedPosts.contains(postId)
+    }
+    
     func getAllPosts() {
-//        let userId = "2fmKZzUCfEeg2tKbU620LsE00H33"
         postService.getAllPosts(){ posts in
-//            self.posts = posts
             
             // Sort post array by date in descending order
             var sortedPosts = posts.sorted(by: { $0.timestamp.compare($1.timestamp) == .orderedDescending })
+            
+            
+            // Load liked posts
+            for i in 0..<sortedPosts.count {
+                if self.isLikedPost(postId: sortedPosts[i].id) {
+                    sortedPosts[i].isLiked = true
+                }
+            }
+            
             self.posts = sortedPosts
-
         }
     }
     
@@ -39,4 +51,5 @@ class FeedViewModel: ObservableObject {
             self.posts = searchedPosts
         }
     }
+    
 }

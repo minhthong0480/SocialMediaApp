@@ -14,10 +14,12 @@ struct ContentView: View {
         Group {
             if viewModel.userSession != nil {
                 TabView {
-                    FeedView()
-                        .tabItem {
-                            Label("Feed", systemImage: "house.fill")
-                        }
+                    if let currentUser = viewModel.currentUser {
+                        FeedView(user: currentUser)
+                            .tabItem {
+                                Label("Feed", systemImage: "house.fill")
+                            }
+                    }
                     ProfileView()
                         .tabItem {
                             Label("Profile", systemImage: "person.fill")
