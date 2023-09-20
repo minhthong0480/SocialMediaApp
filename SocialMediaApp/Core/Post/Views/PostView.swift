@@ -11,13 +11,17 @@ import Kingfisher
 
 struct PostView: View {
     @ObservedObject var viewModel: PostViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
+    
     private var options = ["Edit", "Delete"]
     @State private var selection = ""
     
     @State private var showEditPost = false
     @Environment(\.dismiss) var dismiss
+    
     @State private var edittingCaption = ""
     @State private var placeholder = "What's on your mind?"
+    
     @State private var isLiked = false
     
     init (post: Post) {
@@ -54,26 +58,21 @@ struct PostView: View {
                 }
                 Spacer()
                 VStack(alignment:.trailing, spacing: 10) {
-                    Menu {
-                        Button("Edit") { showEditPost.toggle() }
-                        Button("Delete") { viewModel.deletePost() }
-                    } label: {
-                        Label("", systemImage: "ellipsis")
+                    if let currentUser = authViewModel.currentUser, let postUser = viewModel.user {
+                        if currentUser.uid == postUser.uid {
+                            Menu {
+                                Button("Edit") { showEditPost.toggle() }
+                                Button("Delete") { viewModel.deletePost() }
+                            } label: {
+                                Label("", systemImage: "ellipsis")
+                            }
+                        }
                     }
                     Text(viewModel.post.timestamp.formatted(date: .abbreviated, time: .shortened))
                         .font(.caption)
-                    //                    Text("\(viewModel.post.timestamp)")
-                    //                    Text(viewModel.post.timestamp, style: .date)
-                    //                        .font(.caption)
-                    //                    Text(viewModel.post.timestamp, style: .time)
-                    //                        .font(.caption)
                 }
             }
             Text(viewModel.post.caption)
-            
-            //            RoundedRectangle(cornerRadius: 20)
-            //                .stroke(.black, lineWidth: 1)
-            //                .frame(height:400)
             
             Divider()
             
@@ -103,16 +102,28 @@ struct PostView: View {
         .sheet(isPresented: $showEditPost) {
             VStack(alignment: .leading) {
                 HStack(spacing: 20) {
-                    Image(systemName: "person")
-                        .resizable()
-                        .clipShape(Circle())
-                        .frame(width:100, height:100)
+                    if let user = viewModel.user {
+                        if let imageUrlString = user.profileImageUrl, let imageUrl = URL(string: imageUrlString) {
+                            KFImage(imageUrl)
+                                .resizable()
+                                .scaledToFill()
+                                .clipShape(Circle())
+                                .frame(width: 100, height: 100)
+                        }
+                    } else {
+                        Image(systemName: "person")
+                            .resizable()
+                            .frame(width:100, height:100)
+                    }
                     
                     VStack(alignment: .leading){
-                        Text("Kiet Duong")
-                            .font(.title)
-                            .fontWeight(.bold)
-                        Text("@duonganhkiet")
+                        if let user = viewModel.user {
+                            Text(user.fullname)
+                                .font(.headline)
+                                .fontWeight(.bold)
+                            Text(user.email)
+                                .font(.caption)
+                        }
                     }
                 }
                 
@@ -181,11 +192,3 @@ struct PostView: View {
     
 }
 
-
-
-
-//struct PostView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PostView(post: Post(caption: "Hello, this is an example"))
-//    }
-//}
