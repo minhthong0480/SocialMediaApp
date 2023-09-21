@@ -90,7 +90,7 @@ struct PostView: View {
                         }
                     }
                 }) {
-                    if self.isLiked == true { Text("true") } else {Text("false")}
+//                    if self.isLiked == true { Text("true") } else {Text("false")}
                     Image(systemName: self.isLiked ? "hand.thumbsup.fill" : "hand.thumbsup")
                         .resizable()
                         .scaledToFit()
