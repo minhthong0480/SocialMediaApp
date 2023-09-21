@@ -17,6 +17,7 @@ class FeedViewModel: ObservableObject {
     init(user: User) {
         self.currentUser = user
         getAllPosts()
+        getLikedPosts()
     }
     
     func isLikedPost(postId: String) -> Bool {
@@ -29,15 +30,34 @@ class FeedViewModel: ObservableObject {
             // Sort post array by date in descending order
             var sortedPosts = posts.sorted(by: { $0.timestamp.compare($1.timestamp) == .orderedDescending })
             
-            // Load liked posts
-            for i in 0..<sortedPosts.count {
-                if self.isLikedPost(postId: sortedPosts[i].id) {
-                    sortedPosts[i].isLiked = true
-                }
-            }
-            
             self.posts = sortedPosts
             self.filteredPosts = sortedPosts
+        }
+    }
+    
+    func getLikedPosts () {
+        let db = Firestore.firestore()
+        
+        db.collection("users").document(currentUser.uid ?? "unknown").addSnapshotListener { (document, error) in
+            if let document = document, document.exists {
+                let data = document.data()
+                let likedPosts = data?["likedPosts"] as? [String] ?? [String]()
+                self.currentUser.likedPosts = likedPosts
+                
+                // Load liked posts
+                var temp = self.posts
+                for i in 0..<temp.count {
+                    if likedPosts.contains(temp[i].id) {
+                        temp[i].isLiked = true
+                    } else {
+                        temp[i].isLiked = false
+                    }
+                }
+                self.posts = temp
+                self.filteredPosts = temp
+            } else {
+                print("Document does not exist")
+            }
         }
     }
     
@@ -58,8 +78,9 @@ class FeedViewModel: ObservableObject {
         } else if key == "Latest" {
             filteredPosts = self.posts.sorted(by: { $0.timestamp.compare($1.timestamp) == .orderedDescending })
         } else if key == "Liked" {
-            filteredPosts = self.posts.filter({ $0.isLiked == true })
+            filteredPosts = self.posts.filter({$0.isLiked == true})
         }
+        
         self.filteredPosts = filteredPosts
     }
     

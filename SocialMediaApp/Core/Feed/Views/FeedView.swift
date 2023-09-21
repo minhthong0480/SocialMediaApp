@@ -13,7 +13,6 @@ struct FeedView: View {
     @State private var searchText = ""
     @State private var filterOption = ""
     private let filterOptions = ["Latest", "Oldest", "Liked"]
-    
     init (user: User) {
         self.viewModel = FeedViewModel(user: user)
     }
@@ -45,9 +44,6 @@ struct FeedView: View {
                     }
                 }
             }
-        }
-        .onAppear() {
-            self.viewModel.getAllPosts()
         }
         .searchable(text: $searchText)
         .onChange(of: searchText) {_ in
