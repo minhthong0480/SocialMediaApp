@@ -31,26 +31,20 @@ class PostViewModel: ObservableObject {
         postService.likePost(post: self.post)
         self.post.isLiked = true
         
-        
         let db = Firestore.firestore()
         db.collection("users").document(userId).updateData([
             "likedPosts": FieldValue.arrayUnion([self.post.id])
         ])
-        
-        
     }
     
     func unlikePost(userId: String) {
         postService.unlikePost(post: self.post)
         self.post.isLiked = false
         
-//        guard let userId = Auth.auth().currentUser?.uid else { return }
-        
         let db = Firestore.firestore()
         db.collection("users").document(userId).updateData([
             "likedPosts": FieldValue.arrayRemove([self.post.id])
         ])
-        
     }
     
     func getUser(userId: String) {

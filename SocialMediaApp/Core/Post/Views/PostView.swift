@@ -22,10 +22,11 @@ struct PostView: View {
     @State private var edittingCaption = ""
     @State private var placeholder = "What's on your mind?"
     
-    @State private var isLiked = false
+    @State private var isLiked: Bool
     
     init (post: Post) {
         self.viewModel = PostViewModel(post: post)
+        _isLiked = State(initialValue: post.isLiked)
     }
     
     var body: some View {
@@ -79,15 +80,17 @@ struct PostView: View {
             HStack(spacing:20){
                 Button(action: {
                     if let currentUser = authViewModel.currentUser {
+                        
                         if self.isLiked == true {
                             self.viewModel.unlikePost(userId: currentUser.uid ?? "Unknown")
-                            self.isLiked.toggle()
+                            self.isLiked = false
                         } else {
                             self.viewModel.likePost(userId: currentUser.uid ?? "Unknown")
-                            self.isLiked.toggle()
+                            self.isLiked = true
                         }
                     }
                 }) {
+                    if self.isLiked == true { Text("true") } else {Text("false")}
                     Image(systemName: self.isLiked ? "hand.thumbsup.fill" : "hand.thumbsup")
                         .resizable()
                         .scaledToFit()
@@ -103,9 +106,6 @@ struct PostView: View {
             .frame(height:25)
         } //VStack
         .padding()
-        .onAppear {
-            self.isLiked = viewModel.post.isLiked
-        }
         .sheet(isPresented: $showEditPost) {
             VStack(alignment: .leading) {
                 HStack(spacing: 20) {
@@ -193,6 +193,7 @@ struct PostView: View {
             .padding()
             .onAppear {
                 self.edittingCaption = viewModel.post.caption
+//                self.isLiked = viewModel.post.isLiked
             }
         }// sheet
     }

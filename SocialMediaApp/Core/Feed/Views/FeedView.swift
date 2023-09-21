@@ -46,6 +46,9 @@ struct FeedView: View {
                 }
             }
         }
+        .onAppear() {
+            self.viewModel.getAllPosts()
+        }
         .searchable(text: $searchText)
         .onChange(of: searchText) {_ in
             viewModel.searchPosts(searchText: searchText)
