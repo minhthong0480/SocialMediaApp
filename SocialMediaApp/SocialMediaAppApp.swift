@@ -20,7 +20,6 @@ struct SocialMediaAppApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(viewModel)
-                .environment(\.colorScheme, .light)
         }
     }
 }

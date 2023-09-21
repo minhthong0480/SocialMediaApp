@@ -12,7 +12,7 @@ class ThemeManager {
     
     static let shared = ThemeManager()
     
-    private init() {}
+    private  init() {}
     
     func handleTheme(darkMode: Bool) {
         UIApplication.shared.windows.first?.overrideUserInterfaceStyle = darkMode ? .dark : .light
