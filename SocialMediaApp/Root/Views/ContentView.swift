@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var viewModel: AuthViewModel
+    @AppStorage("darkModeEnabbled") private var darkModeEnabled = false
     
     var body: some View {
         Group {
@@ -20,7 +21,7 @@ struct ContentView: View {
                                 Label("Feed", systemImage: "house.fill")
                             }
                     }
-                    ProfileView()
+                    ProfileView(darkModeEnabled: $darkModeEnabled)
                         .tabItem {
                             Label("Profile", systemImage: "person.fill")
                         }
@@ -33,6 +34,11 @@ struct ContentView: View {
                 LoginView(recentSignIn: RecentSignIn())
             }
         }
+        .onAppear {
+                    ThemeManager
+                        .shared
+                        .handleTheme(darkMode: darkModeEnabled)
+                }
     }
 }
 
