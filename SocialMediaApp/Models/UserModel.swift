@@ -14,6 +14,7 @@ struct User: Identifiable, Codable {
     var fullname: String
     let email: String
     var profileImageUrl: String?
+    var likedPosts: [String]
     
     //let birthdate: Date
     

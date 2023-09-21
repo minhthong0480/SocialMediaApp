@@ -10,17 +10,17 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     
-    @AppStorage("darkModeEnabbled") private var darkModeEnabled = false
-    
     var body: some View {
         Group {
             if viewModel.userSession != nil {
                 TabView {
-                    FeedView()
-                        .tabItem {
-                            Label("Feed", systemImage: "house.fill")
-                        }
-                    ProfileView(darkModeEnabled: $darkModeEnabled)
+                    if let currentUser = viewModel.currentUser {
+                        FeedView(user: currentUser)
+                            .tabItem {
+                                Label("Feed", systemImage: "house.fill")
+                            }
+                    }
+                    ProfileView()
                         .tabItem {
                             Label("Profile", systemImage: "person.fill")
                         }
@@ -33,11 +33,6 @@ struct ContentView: View {
                 LoginView(recentSignIn: RecentSignIn())
             }
         }
-        .onAppear {
-            ThemeManager
-                .shared
-                .handleTheme(darkMode: darkModeEnabled)
-        }
     }
 }
 
@@ -45,5 +40,6 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environmentObject(AuthViewModel())
+        
     }
 }

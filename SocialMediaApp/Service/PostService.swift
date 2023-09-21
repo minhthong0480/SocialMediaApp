@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Firebase
+import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 
@@ -29,8 +29,6 @@ struct PostService {
         let db = Firestore.firestore()
         
         // Generate data for new post
-//        let userId = "gfa0WDjE6uSKvo8J9sIbQxr41v73"
-        
         let timestamp = dateToString(date: Date())
         let data = [
             "caption": caption,
@@ -81,7 +79,7 @@ struct PostService {
                     return
                 }
                 
-                let posts = documents.map { (queryDocumentSnapshot) -> Post in
+                var posts = documents.map { (queryDocumentSnapshot) -> Post in
                     let data = queryDocumentSnapshot.data()
                     let id = queryDocumentSnapshot.documentID
                     let caption = data["caption"] as? String ?? ""
@@ -89,7 +87,7 @@ struct PostService {
                     let date = self.stringToDate(string: timestamp)
                     let userId = data["userId"] as? String ?? ""
                     let likes = data["likes"] as? Int ?? 0
-                    let isLiked = data["isLiked"] as? Bool ?? false
+                    var isLiked = data["isLiked"] as? Bool ?? false
                     return Post(id: id, caption: caption, timestamp: date, userId: userId, likes: likes, isLiked: isLiked)
                 }
                 
@@ -109,11 +107,11 @@ struct PostService {
     
     func likePost(post: Post) {
         let db = Firestore.firestore()
-        db.collection("posts").document(post.id).updateData(["likes": post.likes + 1, "isLiked": true])
+        db.collection("posts").document(post.id).updateData(["likes": post.likes + 1])
     }
     
     func unlikePost(post: Post) {
         let db = Firestore.firestore()
-        db.collection("posts").document(post.id).updateData(["likes": post.likes - 1, "isLiked": false])
+        db.collection("posts").document(post.id).updateData(["likes": post.likes - 1])
     }
 }

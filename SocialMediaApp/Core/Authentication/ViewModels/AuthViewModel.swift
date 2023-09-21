@@ -36,7 +36,7 @@ class AuthViewModel: ObservableObject {
         self.recentSignIn = RecentSignIn() // Initialize recentSignIn
         self.userSession = Auth.auth().currentUser
         self.didAuthenticateUser = false
-        self.user = User(uid: "", fullname: "", email: "") // Replace "" with default values
+        self.user = User(uid: "", fullname: "", email: "", likedPosts: [String]()) // Replace "" with default values
         
         self.getBiometryType()
         
@@ -83,7 +83,7 @@ class AuthViewModel: ObservableObject {
     func createUser(withEmail email: String, password: String, fullname: String) async throws {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
-            var user = User(uid: result.user.uid, fullname: fullname, email: email)
+            var user = User(uid: result.user.uid, fullname: fullname, email: email, likedPosts: [String]())
             
             // Set the profile image URL to nil when creating a new user
             user.profileImageUrl = nil

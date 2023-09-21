@@ -19,8 +19,6 @@ struct NewPostView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(spacing: 20) {
-                
-                
                 if let user = authViewModel.currentUser {
                     if let imageUrlString = user.profileImageUrl, let imageUrl = URL(string: imageUrlString) {
                         KFImage(imageUrl)
@@ -99,9 +97,9 @@ struct NewPostView: View {
     
 }
 
-struct NewPostView_Previews: PreviewProvider {
-    static var previews: some View {
-        NewPostView()
-            .environmentObject(AuthViewModel())
-    }
-}
+//struct NewPostView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NewPostView()
+//            .environmentObject(AuthViewModel())
+//    }
+//}
