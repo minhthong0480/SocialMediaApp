@@ -1,9 +1,14 @@
-//
-//  EditProfileViewModel.swift
-//  SocialMediaApp
-//
-//  Created by Nguyen Hoang Minh Thong on 19/09/2023.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author: Nguyen Hieu Duc Duy
+  ID: s3930426
+  Created  date: 16/9/2023
+  Last modified: 22/09/2023
+  Acknowledgement: Lectures
+*/
 
 import Foundation
 
