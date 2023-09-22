@@ -94,6 +94,7 @@ struct ProfileSelectorView: View {
                     }
                 }
             }
+            .navigationBarBackButtonHidden(true)
         }
         
         

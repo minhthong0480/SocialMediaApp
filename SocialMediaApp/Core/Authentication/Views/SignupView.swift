@@ -26,8 +26,9 @@ struct SignupView: View {
         //image
         NavigationStack {
             VStack {
-                NavigationLink(destination: ProfileSelectorView(),isActive:$viewAuthModel.didAuthenticateUser, label: {})
-                    .navigationBarBackButtonHidden(true)
+                NavigationLink(destination: ProfileSelectorView(), isActive: $viewAuthModel.didAuthenticateUser, label: {})
+                    .navigationBarBackButtonHidden(true) 
+
                 
                 RoundedRectangle(cornerRadius: 50)
                     .frame(width: 1000, height: 300)
