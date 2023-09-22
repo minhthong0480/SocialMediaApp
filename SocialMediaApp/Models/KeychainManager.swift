@@ -1,3 +1,16 @@
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author: Ngo Chi Binh
+  ID: s3938145
+  Created  date: 15/09/2023
+  Last modified: 22/09/2023
+  Acknowledgement:
+ https://www.kodeco.com/11496196-how-to-secure-ios-user-data-keychain-services-and-biometrics-with-swiftui?fbclid=IwAR35T3MZxtLZNS-_hh_f2CWbzYxq18HanB_fTc9KZ35y2zkKvQaj1y-h44U
+*/
+
 //
 //  KeychainServices.swift
 //  SocialMediaApp

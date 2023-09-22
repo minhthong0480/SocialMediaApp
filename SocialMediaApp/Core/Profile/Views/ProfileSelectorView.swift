@@ -1,3 +1,20 @@
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author: Nguyen Hoang Minh Thong
+  ID: s3852882
+  Created  date: 18/9/2023
+  Last modified: 22/09/2023
+  Acknowledgement:
+  - https://www.youtube.com/watch?v=7UKUCZuaVlA&t=16202s
+  - https://www.youtube.com/watch?v=WehPyIuSlKg
+  - https://www.youtube.com/watch?v=xhOFZyJW_1c
+  - https://www.youtube.com/watch?v=NvcSgCKLX_0&t=596s
+  - https://www.youtube.com/watch?v=3pIXMwvJLZs
+*/
+
 //
 //  ProfileSelectorView.swift
 //  SocialMediaApp

@@ -1,3 +1,16 @@
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author: Ngo Chi Binh
+  ID: s3938145
+  Created  date: 16/09/2023
+  Last modified: 22/09/2023
+  Acknowledgement:
+    https://github.com/ashislaha/LocalAuthentication
+*/
+
 //
 //  RecentPassword.swift
 //  SocialMediaApp
