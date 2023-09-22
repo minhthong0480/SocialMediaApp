@@ -97,7 +97,21 @@ struct PostService {
     
     func deletePost(postId: String) {
         let db = Firestore.firestore()
+        
+        // Delete post in posts collection
         db.collection("posts").document(postId).delete()
+        
+        // Delete post in likedPosts array of users
+        db.collection("users").whereField("likedPosts", arrayContains: postId).getDocuments{ (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    let user = document.reference
+                    user.updateData(["likedPosts": FieldValue.arrayRemove([postId])])
+                }
+            }
+        }
     }
     
     func updatePost(postId: String, caption: String) {
