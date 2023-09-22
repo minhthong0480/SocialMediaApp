@@ -3,8 +3,8 @@
   Course: COSC2659 iOS Development
   Semester: 2023B
   Assessment: Assignment 3
-  Author: Nguyen Hoang Minh Thong
-  ID: s3852882
+  Author: Nguyen Hieu Duc Duy
+  ID: s3930426
   Created  date: 18/9/2023
   Last modified: 22/09/2023
   Acknowledgement:
