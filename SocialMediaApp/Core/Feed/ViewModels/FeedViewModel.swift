@@ -30,6 +30,15 @@ class FeedViewModel: ObservableObject {
             // Sort post array by date in descending order
             var sortedPosts = posts.sorted(by: { $0.timestamp.compare($1.timestamp) == .orderedDescending })
             
+            // Load liked posts
+            for i in 0..<sortedPosts.count {
+                if self.isLikedPost(postId: sortedPosts[i].id) {
+                    sortedPosts[i].isLiked = true
+                } else {
+                    sortedPosts[i].isLiked = false
+                }
+            }
+            
             self.posts = sortedPosts
             self.filteredPosts = sortedPosts
         }
@@ -53,6 +62,7 @@ class FeedViewModel: ObservableObject {
                         temp[i].isLiked = false
                     }
                 }
+                
                 self.posts = temp
                 self.filteredPosts = temp
             } else {
