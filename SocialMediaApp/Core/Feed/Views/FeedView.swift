@@ -13,6 +13,7 @@ struct FeedView: View {
     @State private var searchText = ""
     @State private var filterOption = ""
     private let filterOptions = ["Latest", "Oldest", "Liked"]
+    private let appName = "Connect"
     init (user: User) {
         self.viewModel = FeedViewModel(user: user)
     }
@@ -28,7 +29,7 @@ struct FeedView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text("Tweeter")
+                    Text(appName)
                         .font(.largeTitle)
                         .fontWeight(.heavy)
                         .foregroundColor(.primary)
