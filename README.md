@@ -1,6 +1,6 @@
 # SocialMediaApp
 
-Github Repo: https://drive.google.com/drive/u/1/folders/1W3TJIsfm9nyUo0J-Z5hI-fZdcO1QDhbu
+Github Repo: https://github.com/minhthong0480/SocialMediaApp/edit/main/README.md
 
 Presentation Video: https://youtu.be/s3fY8pd9ZNc?si=35FastOiU-UTjF22
 
